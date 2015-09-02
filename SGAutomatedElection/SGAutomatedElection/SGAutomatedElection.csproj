@@ -97,9 +97,6 @@
     <Resource Include="Images\barchart.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="logout.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\logout.png" />
   </ItemGroup>
   <ItemGroup>
