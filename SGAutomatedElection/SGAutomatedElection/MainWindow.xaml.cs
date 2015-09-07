@@ -76,14 +76,29 @@ namespace SGAutomatedElection
 
         }
 
+        private void btnAddPositions_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAddPartyMembers_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
 
 
-    
+        private void txtPass_GotFocus(object sender, RoutedEventArgs e)
+        {
+            ((PasswordBox)FindName("txtPass")).Clear();
+            ((PasswordBox)FindName("txtPass")).Foreground = new SolidColorBrush(Colors.Black);
+        }
 
-       
-
-
-
+        private void txtUsername_GotFocus(object sender, RoutedEventArgs e)
+        {
+            ((TextBox)FindName("txtUsername")).Clear();
+            ((TextBox)FindName("txtUsername")).FontStyle = FontStyles.Normal;
+            ((TextBox)FindName("txtUsername")).Foreground = new SolidColorBrush(Colors.Black);
+        }
     }
     
 }

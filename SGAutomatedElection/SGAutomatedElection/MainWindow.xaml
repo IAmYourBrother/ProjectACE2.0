@@ -4,13 +4,14 @@
         Title="Project ACE" Height="500" Width="900" Background="Silver">
     <Grid>
         <Grid x:Name="gridLogin" Visibility="Visible">
-            <PasswordBox HorizontalAlignment="Left" Margin="362,247,0,0" VerticalAlignment="Top" Width="177" Height="25"
-                         Foreground="Gray" FontStyle="Italic" Password="******"/>
+            <PasswordBox x:Name="txtPass" HorizontalAlignment="Left" Margin="362,247,0,0" VerticalAlignment="Top" Width="177" Height="25"
+                         Foreground="Gray" FontStyle="Italic" Password="******" GotFocus="txtPass_GotFocus"/>
             <TextBox x:Name="txtUsername" HorizontalAlignment="Left" Height="25" Margin="362,206,0,0" TextWrapping="Wrap" 
-                     VerticalAlignment="Top" Width="177" Foreground="Gray" FontStyle="Italic" Text="Enter Username"/>
+                     VerticalAlignment="Top" Width="177" Foreground="Gray" FontStyle="Italic" Text="Enter Username" GotFocus="txtUsername_GotFocus"/>
             <Button x:Name="btnLogin" Content="Log In" HorizontalAlignment="Left" Margin="400,300,0,0" VerticalAlignment="Top" Width="75" Cursor="Hand" Click="btnLogin_Click"/>
-            <Image HorizontalAlignment="Left" Height="144" Margin="362,41,0,0" VerticalAlignment="Top" Width="177"/>
-
+            <StackPanel Orientation="Horizontal" Width="177" Height="177" Margin="349,24,366,272">
+                <Image Source="Images\logo.png" Width="177" Height="177"/>
+            </StackPanel>
         </Grid>
         <Grid x:Name="gridStudent" Visibility="Collapsed">
 
@@ -57,7 +58,7 @@
         </Grid>
         <Grid x:Name="gridManageStudents" Visibility="Collapsed">
             <Label Content="Manage Student Account" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI LIght" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-            
+
 
         </Grid>
         <Grid x:Name="gridManageTeachers" Visibility="Collapsed">
@@ -66,11 +67,19 @@
         </Grid>
         <Grid x:Name="gridManageAdmins" Visibility="Collapsed">
             <Label Content="Manage Administrator Account" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI LIght" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-
         </Grid>
         <!--All grids below concern the Electoral Process and Registration-->
         <Grid x:Name="gridRegisterParty" Visibility="Collapsed">
             <Label Content="Register New Party" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI LIght" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+                <Label Content="Name of Party" Margin="40,128,761,315" />
+                <Label Content="Add Set of Positions" Margin="40,222,735,227" />
+                <Button x:Name="btnAddPartyMembers" Content="Add" Click="btnAddPartyMembers_Click" Margin="199,174,631,272"/>
+                <Label Content="Add Party Members" Margin="40,174,727,272" />
+                <Button x:Name="btnAddPositions" Content="Add" Click="btnAddPartyMembers_Click" Margin="199,227,631,219"/>
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="171,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+        </Grid>
+        <Grid x:Name="gridAddPartyMembers" Visibility="Collapsed">
 
         </Grid>
         <Grid x:Name="gridElectoralResults" Visibility="Collapsed">
