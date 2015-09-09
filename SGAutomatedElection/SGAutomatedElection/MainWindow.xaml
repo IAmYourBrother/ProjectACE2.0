@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Project ACE" Height="500" Width="900" Background="Silver">
     <Grid >
-        <Grid x:Name="gridLogin" Visibility="Visible">
+        <Grid x:Name="gridLogin" Visibility="Collapsed">
             <PasswordBox x:Name="txtPass" HorizontalAlignment="Left" Margin="362,320,0,0" VerticalAlignment="Top" Width="177" Height="25"
                          Foreground="Gray" FontStyle="Italic" Password="******" GotFocus="txtPass_GotFocus" KeyboardNavigation.TabIndex="2"/>
             <TextBox x:Name="txtUsername" HorizontalAlignment="Left" Height="25" Margin="362,279,0,0" TextWrapping="Wrap" 
@@ -23,7 +23,7 @@
 
         </Grid>
         <Grid x:Name="gridAdmin" Visibility="Collapsed" Height="473" VerticalAlignment="Bottom" Margin="10,0,-10,0">
-            <Label Content="Administrator Control Panel" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI LIght" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+            <Label Content="Administrator Control Panel" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
             <StackPanel HorizontalAlignment="Left" Height="150" Margin="215,193,0,0" VerticalAlignment="Top" Width="459" Orientation="Horizontal">
                 <Button x:Name="btnViewCandidates" Width="150" Height="150" BorderThickness="0" Margin="0,0,5,0" Background="Gray" MouseEnter="btnViewCandidates_MouseEnter" Cursor="Hand" MouseLeave="btnViewCandidates_MouseLeave">
                     <StackPanel Orientation="Horizontal">
@@ -49,7 +49,7 @@
 
         </Grid>
         <Grid x:Name="gridManageMain" Visibility="Collapsed">
-            <Label Content="Account Management Panel" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI LIght" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+            <Label Content="Account Management Panel" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
             <StackPanel HorizontalAlignment="Left" Height="190" Margin="244,170,0,0" VerticalAlignment="Top" Width="380">
                 <Button x:Name="btnMStudents" Content="Manage Students" Margin="0,5,0,0" Height="56" Click="btnMStudents_Click"/>
                 <Button x:Name="btnMTeachers" Content="Manage Teachers" Margin="0,5,0,0" Height="56" Click="btnMTeachers_Click"/>
@@ -57,23 +57,40 @@
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="gridAddUser" Visibility="Collapsed">
-            <Label Content="Add User" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI LIght" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-            <ComboBox x:Name="cmbxUserType" Height="20" Width="210" Margin="334,183,348,270"/>
-            <TextBox x:Name="txtName" Height="20" Width="210" Margin="334,208,348,245" />
-            <TextBox x:Name="txtNumber" Height="20" Width="210" Margin="334,233,348,220"/>
-            <ComboBox x:Name="cmbxYrLevel" Height="20" Width="210" Margin="334,258,348,195"/>
-            <ComboBox x:Name="cmbxSection" Height="20" Width="210" Margin="334,283,348,170"/>
-            <ComboBox x:Name="cmbxDepartment" Height="20" Width="210" Margin="334,258,348,195"/>
-            <PasswordBox x:Name="pbPassword" Height="20" Width="210" Margin="334,308,348,145" />
-            <PasswordBox x:Name="pbConfirmPassword" Height="20" Width="210" Margin="334,333,348,120" />
-            <Button x:Name="btnAdd" Content="Add" Height="20" Margin="362,392,470,61"/>
-            <Button x:Name="btnCancel" Content="Cancel" Height="20" Margin="462,392,370,61"/>
+        <Grid x:Name="gridAddUser" Visibility="Visible"> 
+            <Label Content="Add User" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+            <StackPanel Orientation="Vertical" Width="250" Margin="321,136,321,55">
+                <ComboBox x:Name="cmbxUserType" Height="25" Width="210" Margin="0,0,0,5"/>
+                <TextBox x:Name="txtName" Height="25" Width="210" Margin="20,0,20,5"/>
+                <TextBox x:Name="txtNumber" Height="25" Width="210" Margin="0,0,0,5"/>
+                <ComboBox x:Name="cmbxYrLevel" Height="25" Width="210" Margin="0,0,0,5"/>
+                <ComboBox x:Name="cmbxSection" Height="25" Width="210" Margin="0,0,0,5"/>
+                <ComboBox x:Name="cmbxDepartment" Height="25" Width="210" Margin="0,0,0,5"/>
+                <PasswordBox x:Name="pbPassword" Height="25" Width="210" Margin="0,0,0,5"/>
+                <PasswordBox x:Name="pbConfirmPassword" Height="25" Width="210" Margin="0,0,0,5"/>
+                <StackPanel Orientation="Horizontal" Height="30" Width="200">
+                    <Button x:Name="btnAdd" Content="Add" Height="20" Width="50" Margin="25,0,50,0"/>
+                    <Button x:Name="btnCancel" Content="Cancel" Height="20" Width="50"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Width="150" Margin="221,136,521,55">
+                <Label Content="User Type" Margin="0,0,0,5" Height="25"/>
+                <Label Content="Name" Margin="0,0,0,5" Height="25"/>
+                <Label x:Name="lblEN" Content="Employee Number" Margin="0,0,0,5" Height="25"/>
+                <Label x:Name="lblSN" Content="Student Number" Margin="0,0,0,5" Height="25"/>
+                <Label x:Name="lblYrLevel" Content="Year Level" Margin="0,0,0,5" Height="25"/>
+                <Label x:Name="lblSection" Content="Section" Margin="0,0,0,5" Height="25"/>
+                <Label x:Name="lblDepartment" Content="Department" Margin="0,0,0,5" Height="25"/>
+                <Label Content="Password" Margin="0,0,0,5" Height="25"/>
+                <Label Content="Confirm Password" Margin="0,0,0,5"/>
+            </StackPanel>
+
+
         </Grid>
 
         <!--All grids below concern the Electoral Process and Registration-->
         <Grid x:Name="gridRegisterParty" Visibility="Collapsed">
-            <Label Content="Register New Party" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI LIght" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+            <Label Content="Register New Party" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
             <Label Content="Name of Party" Margin="40,128,761,315" />
             <Label Content="Add Set of Positions" Margin="40,222,735,227" />
             <Button x:Name="btnAddPartyMembers" Content="Add" Click="btnAddPartyMembers_Click" Margin="199,174,631,272"/>
