@@ -2,15 +2,15 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Project ACE" Height="500" Width="900" Background="Silver">
-    <Grid>
+    <Grid >
         <Grid x:Name="gridLogin" Visibility="Visible">
-            <PasswordBox x:Name="txtPass" HorizontalAlignment="Left" Margin="362,247,0,0" VerticalAlignment="Top" Width="177" Height="25"
-                         Foreground="Gray" FontStyle="Italic" Password="******" GotFocus="txtPass_GotFocus"/>
-            <TextBox x:Name="txtUsername" HorizontalAlignment="Left" Height="25" Margin="362,206,0,0" TextWrapping="Wrap" 
-                     VerticalAlignment="Top" Width="177" Foreground="Gray" FontStyle="Italic" Text="Enter Username" GotFocus="txtUsername_GotFocus"/>
-            <Button x:Name="btnLogin" Content="Log In" HorizontalAlignment="Left" Margin="400,300,0,0" VerticalAlignment="Top" Width="75" Cursor="Hand" Click="btnLogin_Click"/>
+            <PasswordBox x:Name="txtPass" HorizontalAlignment="Left" Margin="362,320,0,0" VerticalAlignment="Top" Width="177" Height="25"
+                         Foreground="Gray" FontStyle="Italic" Password="******" GotFocus="txtPass_GotFocus" KeyboardNavigation.TabIndex="2"/>
+            <TextBox x:Name="txtUsername" HorizontalAlignment="Left" Height="25" Margin="362,279,0,0" TextWrapping="Wrap" 
+                     VerticalAlignment="Top" Width="177" Foreground="Gray" FontStyle="Italic" Text="Enter Username" GotFocus="txtUsername_GotFocus" KeyboardNavigation.TabIndex="1"/>
+            <Button x:Name="btnLogin" Content="Log In" HorizontalAlignment="Left" Margin="400,373,0,0" VerticalAlignment="Top" Width="75" Cursor="Hand" Click="btnLogin_Click" Height="24" KeyboardNavigation.TabIndex="3"/>
             <StackPanel Orientation="Horizontal" Width="177" Height="177" Margin="349,24,366,272">
-                <Image Source="Images\logo.png" Width="177" Height="177"/>
+                <Image Source="Images\logo.png" Width="177" Height="177" Margin="0,23,0,-23" KeyboardNavigation.TabIndex="0"/>
             </StackPanel>
         </Grid>
         <Grid x:Name="gridStudent" Visibility="Collapsed">
@@ -56,28 +56,31 @@
                 <Button x:Name="btnMAdmins" Content="Manage Administrators" Margin="0,5,0,0" Height="56" Click="btnMAdmins_Click"/>
             </StackPanel>
         </Grid>
-        <Grid x:Name="gridManageStudents" Visibility="Collapsed">
-            <Label Content="Manage Student Account" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI LIght" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
 
+        <Grid x:Name="gridAddUser" Visibility="Collapsed">
+            <Label Content="Add User" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI LIght" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+            <ComboBox x:Name="cmbxUserType" Height="20" Width="210" Margin="334,183,348,270"/>
+            <TextBox x:Name="txtName" Height="20" Width="210" Margin="334,208,348,245" />
+            <TextBox x:Name="txtNumber" Height="20" Width="210" Margin="334,233,348,220"/>
+            <ComboBox x:Name="cmbxYrLevel" Height="20" Width="210" Margin="334,258,348,195"/>
+            <ComboBox x:Name="cmbxSection" Height="20" Width="210" Margin="334,283,348,170"/>
+            <ComboBox x:Name="cmbxDepartment" Height="20" Width="210" Margin="334,258,348,195"/>
+            <PasswordBox x:Name="pbPassword" Height="20" Width="210" Margin="334,308,348,145" />
+            <PasswordBox x:Name="pbConfirmPassword" Height="20" Width="210" Margin="334,333,348,120" />
+            <Button x:Name="btnAdd" Content="Add" Height="20" Margin="362,392,470,61"/>
+            <Button x:Name="btnCancel" Content="Cancel" Height="20" Margin="462,392,370,61"/>
+        </Grid>
 
-        </Grid>
-        <Grid x:Name="gridManageTeachers" Visibility="Collapsed">
-            <Label Content="Manage Teacher Account" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI LIght" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-
-        </Grid>
-        <Grid x:Name="gridManageAdmins" Visibility="Collapsed">
-            <Label Content="Manage Administrator Account" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI LIght" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-        </Grid>
         <!--All grids below concern the Electoral Process and Registration-->
         <Grid x:Name="gridRegisterParty" Visibility="Collapsed">
             <Label Content="Register New Party" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI LIght" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-                <Label Content="Name of Party" Margin="40,128,761,315" />
-                <Label Content="Add Set of Positions" Margin="40,222,735,227" />
-                <Button x:Name="btnAddPartyMembers" Content="Add" Click="btnAddPartyMembers_Click" Margin="199,174,631,272"/>
-                <Label Content="Add Party Members" Margin="40,174,727,272" />
-                <Button x:Name="btnAddPositions" Content="Add" Click="btnAddPartyMembers_Click" Margin="199,227,631,219"/>
+            <Label Content="Name of Party" Margin="40,128,761,315" />
+            <Label Content="Add Set of Positions" Margin="40,222,735,227" />
+            <Button x:Name="btnAddPartyMembers" Content="Add" Click="btnAddPartyMembers_Click" Margin="199,174,631,272"/>
+            <Label Content="Add Party Members" Margin="40,174,727,272" />
+            <Button x:Name="btnAddPositions" Content="Add" Click="btnAddPartyMembers_Click" Margin="199,227,631,219"/>
             <TextBox HorizontalAlignment="Left" Height="23" Margin="171,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-
+            <Label Content="User Type"/>
         </Grid>
         <Grid x:Name="gridAddPartyMembers" Visibility="Collapsed">
 
