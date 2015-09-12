@@ -25,14 +25,19 @@
         <Grid x:Name="gridAdmin" Visibility="Collapsed" Height="473" VerticalAlignment="Bottom" Margin="10,0,-10,0">
             <Label Content="Administrator Control Panel" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
             <StackPanel HorizontalAlignment="Left" Height="150" Margin="215,193,0,0" VerticalAlignment="Top" Width="459" Orientation="Horizontal">
-                <Button x:Name="btnViewCandidates" Width="150" Height="150" BorderThickness="0" Margin="0,0,5,0" Background="Gray" MouseEnter="btnViewCandidates_MouseEnter" Cursor="Hand" MouseLeave="btnViewCandidates_MouseLeave">
+                <Button x:Name="btnViewCandidates" Width="150" Height="150" BorderThickness="0" Margin="0,0,5,0" Background="Gray"  Cursor="Hand">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Images\search.png" Width="150" Height="150"/>
                         <TextBlock Text="text" VerticalAlignment="Center" />
                     </StackPanel>
                 </Button>
-                <Button x:Name="btnManage" Width="150" Height="150" BorderThickness="0" Margin="0,0,5,0" Background="Gray" MouseEnter="btnManage_MouseEnter" Cursor="Hand" MouseLeave="btnManage_MouseLeave"/>
-                <Button x:Name="btnElectoralResults" Width="150" Height="150" BorderThickness="0" Margin="0,0,5,0" Background="Gray" MouseEnter="btnElectoralResults_MouseEnter" Cursor="Hand" MouseLeave="btnElectoralResults_MouseLeave">
+                <Button x:Name="btnManage" Width="150" Height="150" BorderThickness="0" Margin="0,0,5,0" Background="Gray" Cursor="Hand" Click="btnManage_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Images\manage2.png" Width="150" Height="150"/>
+                        <TextBlock Text="text" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnElectoralResults" Width="150" Height="150" BorderThickness="0" Margin="0,0,5,0" Background="Gray" Cursor="Hand" >
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Images\barchart.png" Width="150" Height="150"/>
                         <TextBlock Text="text" VerticalAlignment="Center" />
@@ -46,7 +51,6 @@
                 </StackPanel>
             </Button>
             <Label x:Name="lblLogout" Content="Logout" HorizontalAlignment="Left" Margin="748,68,0,0" VerticalAlignment="Top"/>
-
         </Grid>
         <Grid x:Name="gridManageMain" Visibility="Collapsed">
             <Label Content="Account Management Panel" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
@@ -56,11 +60,33 @@
                 <Button x:Name="btnMAdmins" Content="Manage Administrators" Margin="0,5,0,0" Height="56" Click="btnMAdmins_Click"/>
             </StackPanel>
         </Grid>
-
-        <Grid x:Name="gridAddUser" Visibility="Visible"> 
-            <Label Content="Add User" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+        <!--Controls will be modified according to the button pressed in the gridManageMain-->
+        <Grid x:Name="gridManagementUser" Visibility="Collapsed">
+            <Label x:Name="lblMUser" Content="Manage Account" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+            <StackPanel HorizontalAlignment="Left" Height="150" Margin="215,193,0,0" VerticalAlignment="Top" Width="459" Orientation="Horizontal">
+                <Button x:Name="btnAdd" Width="150" Height="150" BorderThickness="0" Margin="0,0,5,0" Background="Gray" Click="btnAdd_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Images\addbutton.png" Width="150" Height="150"/>
+                        <TextBlock Text="text" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnEdit" Width="150" Height="150" BorderThickness="0" Margin="0,0,5,0" Background="Gray" Click="btnEdit_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Images\editbutton.png" Width="150" Height="150"/>
+                        <TextBlock Text="text" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnDelete" Width="150" Height="150" BorderThickness="0" Margin="0,0,5,0" Background="Gray" Click="btnDelete_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Images\deletebutton.png" Width="150" Height="150"/>
+                        <TextBlock Text="text" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="gridAddUser" Visibility="Collapsed"> 
+            <Label x:Name="lblAddUser" Content="Add User" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
             <StackPanel Orientation="Vertical" Width="250" Margin="321,136,321,55">
-                <ComboBox x:Name="cmbxUserType" Height="25" Width="210" Margin="0,0,0,5"/>
                 <TextBox x:Name="txtName" Height="25" Width="210" Margin="20,0,20,5"/>
                 <TextBox x:Name="txtNumber" Height="25" Width="210" Margin="0,0,0,5"/>
                 <ComboBox x:Name="cmbxYrLevel" Height="25" Width="210" Margin="0,0,0,5"/>
@@ -69,12 +95,11 @@
                 <PasswordBox x:Name="pbPassword" Height="25" Width="210" Margin="0,0,0,5"/>
                 <PasswordBox x:Name="pbConfirmPassword" Height="25" Width="210" Margin="0,0,0,5"/>
                 <StackPanel Orientation="Horizontal" Height="30" Width="200">
-                    <Button x:Name="btnAdd" Content="Add" Height="20" Width="50" Margin="25,0,50,0"/>
-                    <Button x:Name="btnCancel" Content="Cancel" Height="20" Width="50"/>
+                    <Button x:Name="btnAddUser" Content="Add" Height="20" Width="50" Margin="25,0,50,0"/>
+                    <Button x:Name="btnCancel" Content="Cancel" Height="20" Width="50" Click="btnCancel_Click"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Vertical" Width="150" Margin="221,136,521,55">
-                <Label Content="User Type" Margin="0,0,0,5" Height="25"/>
                 <Label Content="Name" Margin="0,0,0,5" Height="25"/>
                 <Label x:Name="lblEN" Content="Employee Number" Margin="0,0,0,5" Height="25"/>
                 <Label x:Name="lblSN" Content="Student Number" Margin="0,0,0,5" Height="25"/>
@@ -84,8 +109,19 @@
                 <Label Content="Password" Margin="0,0,0,5" Height="25"/>
                 <Label Content="Confirm Password" Margin="0,0,0,5"/>
             </StackPanel>
+        </Grid>
+        <Grid x:Name="gridUserSearch" Visibility="Visible">
+            <Label x:Name="lblDeleteUser" Content="Delete User" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+            <ListView x:Name="lstUsers" Margin="266,178,241,20" Width="385" HorizontalAlignment="Center" Height="275">
+                <ListView.View>
+                    <GridView AllowsColumnReorder="False">
+                        <GridViewColumn Header="ID Number" Width="130" DisplayMemberBinding="{Binding UserID}"/>
+                        <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="Year-Section" Width="100" DisplayMemberBinding="{Binding YrLevelSection}"/>
+                    </GridView>
+                </ListView.View>
 
-
+            </ListView>
         </Grid>
 
         <!--All grids below concern the Electoral Process and Registration-->
