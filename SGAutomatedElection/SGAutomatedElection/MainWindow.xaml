@@ -109,10 +109,12 @@
                 <Label Content="Confirm Password" Margin="0,0,0,5"/>
             </StackPanel>
         </Grid>
-        <Grid x:Name="gridUserSearch" Visibility="Visible" KeyDown="gridUserSearch_KeyDown">
+        <Grid x:Name="gridUserSearch" Visibility="Visible">
             <Label x:Name="lblDeleteUser" Content="Delete User" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-            <TextBox x:Name="txtDeleteNumber" Width="284" Height="25" HorizontalAlignment="Center" KeyDown="txtDeleteNumber_KeyDown" Margin="265,423,343,25" 
-                     Foreground="Gray" FontStyle="Italic" Text="Enter User Number" GotFocus="txtDeleteNumber_GotFocus"/>
+            <StackPanel Orientation="Horizontal" Width="300" Height="25" Margin="265,424,327,25">
+                <TextBox x:Name="txtDeleteNumber" Width="284" Height="25" KeyDown="txtDeleteNumber_KeyDown" 
+            		Foreground="Gray" FontStyle="Italic" Text="Enter User Number" GotFocus="txtDeleteNumber_GotFocus" />
+            </StackPanel>
             <ListView x:Name="lstUsers" Margin="265,130,242,68" Width="385" Height="275">
                 <ListView.View>
                     <GridView AllowsColumnReorder="False">

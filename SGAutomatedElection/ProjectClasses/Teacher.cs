@@ -17,6 +17,10 @@ namespace ProjectClasses
             Department = department;
             Password = password;
         }
+        public Teacher(int id)
+        {
+            ID = id;
+        }
         //IQuery methods
         public void Insert()
         {

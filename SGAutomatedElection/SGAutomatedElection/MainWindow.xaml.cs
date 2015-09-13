@@ -446,18 +446,24 @@ namespace SGAutomatedElection
         private void txtDeleteNumber_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             //write some code
-            string usertype = GetUType(Convert.ToInt32(txtDeleteNumber.Text));
-            if (usertype == "Student")
+            if (e.Key == System.Windows.Input.Key.Enter)
             {
-                
-            }
-            else if(usertype == "Teacher")
-            {
-
-            }
-            else if (usertype == "Admin")
-            {
-                
+                string usertype = GetUType(Convert.ToInt32(txtDeleteNumber.Text));
+                if (usertype == "Student")
+                {
+                    aStudent = new Student(Convert.ToInt32(txtDeleteNumber.Text));
+                    aStudent.Delete();
+                }
+                else if (usertype == "Teacher")
+                {
+                    aTeacher = new Teacher(Convert.ToInt32(txtDeleteNumber.Text));
+                    aTeacher.Delete();
+                }
+                else if (usertype == "Admin")
+                {
+                    aAdmin = new Admin(Convert.ToInt32(txtDeleteNumber.Text));
+                    aAdmin.Delete();
+                }                
             }
         }
 

@@ -15,6 +15,10 @@ namespace ProjectClasses
             Name = name;
             Password = password;
         }
+        public Admin(int id)
+        {
+            ID = id;
+        }
         //IQuery methods
         public void Insert()
         {

@@ -17,6 +17,10 @@ namespace ProjectClasses
             Password = password;
             HasVoted = hasvoted;
         }
+        public Student(int id)
+        {
+            ID = id;
+        }
         //IQuery methods
         public void Insert()
         {
