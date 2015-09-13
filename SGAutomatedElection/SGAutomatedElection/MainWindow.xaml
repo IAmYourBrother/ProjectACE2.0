@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Project ACE" Height="500" Width="900" Background="Silver" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid >
-        <Grid x:Name="gridLogin" Visibility="Visible">
+        <Grid x:Name="gridLogin" Visibility="Collapsed">
             <PasswordBox x:Name="txtPass" HorizontalAlignment="Left" Margin="362,320,0,0" VerticalAlignment="Top" Width="177" Height="25"
                          Foreground="Gray" FontStyle="Italic" Password="******" GotFocus="txtPass_GotFocus" KeyboardNavigation.TabIndex="2"/>
             <TextBox x:Name="txtUsername" HorizontalAlignment="Left" Height="25" Margin="362,279,0,0" TextWrapping="Wrap" 
@@ -84,18 +84,18 @@
                 </Button>
             </StackPanel>
         </Grid>
-        <Grid x:Name="gridAddUser" Visibility="Collapsed"> 
+        <Grid x:Name="gridAddUser" Visibility="Collapsed">
             <Label x:Name="lblAddUser" Content="Add User" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
             <StackPanel Orientation="Vertical" Width="250" Margin="321,136,321,55">
                 <TextBox x:Name="txtName" Height="25" Width="210" Margin="20,0,20,5"/>
-                <TextBox x:Name="txtNumber" Height="25" Width="210" Margin="0,0,0,5"/>
-                <ComboBox x:Name="cmbxYrLevel" Height="25" Width="210" Margin="0,0,0,5"/>
+                <TextBox x:Name="txtNumber" Height="25" Width="210" Margin="0,0,0,5" KeyDown="txtNumber_KeyDown"/>
                 <ComboBox x:Name="cmbxSection" Height="25" Width="210" Margin="0,0,0,5"/>
                 <ComboBox x:Name="cmbxDepartment" Height="25" Width="210" Margin="0,0,0,5"/>
                 <PasswordBox x:Name="pbPassword" Height="25" Width="210" Margin="0,0,0,5"/>
                 <PasswordBox x:Name="pbConfirmPassword" Height="25" Width="210" Margin="0,0,0,5"/>
                 <StackPanel Orientation="Horizontal" Height="30" Width="200">
                     <Button x:Name="btnAddUser" Content="Add" Height="20" Width="50" Margin="25,0,50,0" Click="btnAddUser_Click"/>
+                    <Button x:Name="btnEditUser" Content="Edit" Height="20" Width="50" Margin="25,0,50,0" Click="btnEditUser_Click" Visibility="Collapsed"/>
                     <Button x:Name="btnCancel" Content="Cancel" Height="20" Width="50" Click="btnCancel_Click"/>
                 </StackPanel>
             </StackPanel>
@@ -103,16 +103,17 @@
                 <Label Content="Name" Margin="0,0,0,5" Height="25"/>
                 <Label x:Name="lblEN" Content="Employee Number" Margin="0,0,0,5" Height="25"/>
                 <Label x:Name="lblSN" Content="Student Number" Margin="0,0,0,5" Height="25"/>
-                <Label x:Name="lblYrLevel" Content="Year Level" Margin="0,0,0,5" Height="25"/>
                 <Label x:Name="lblSection" Content="Section" Margin="0,0,0,5" Height="25"/>
                 <Label x:Name="lblDepartment" Content="Department" Margin="0,0,0,5" Height="25"/>
                 <Label Content="Password" Margin="0,0,0,5" Height="25"/>
                 <Label Content="Confirm Password" Margin="0,0,0,5"/>
             </StackPanel>
         </Grid>
-        <Grid x:Name="gridUserSearch" Visibility="Collapsed">
+        <Grid x:Name="gridUserSearch" Visibility="Visible" KeyDown="gridUserSearch_KeyDown">
             <Label x:Name="lblDeleteUser" Content="Delete User" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-            <ListView x:Name="lstUsers" Margin="266,178,241,20" Width="385" HorizontalAlignment="Center" Height="275">
+            <TextBox x:Name="txtDeleteNumber" Width="284" Height="25" HorizontalAlignment="Center" KeyDown="txtDeleteNumber_KeyDown" Margin="265,423,343,25" 
+                     Foreground="Gray" FontStyle="Italic" Text="Enter User Number" GotFocus="txtDeleteNumber_GotFocus"/>
+            <ListView x:Name="lstUsers" Margin="265,130,242,68" Width="385" Height="275">
                 <ListView.View>
                     <GridView AllowsColumnReorder="False">
                         <GridViewColumn Header="ID Number" Width="130" DisplayMemberBinding="{Binding UserID}"/>

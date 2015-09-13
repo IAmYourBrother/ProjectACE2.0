@@ -10,12 +10,11 @@ namespace ProjectClasses
 {
     public class Teacher : IQuery
     {
-        public Teacher(int id, string name, string department, string username, string password)
+        public Teacher(int id, string name, string department, string password)
         {
             ID = id;
             Name = name;
             Department = department;
-            Username = username;
             Password = password;
         }
         //IQuery methods
@@ -25,10 +24,12 @@ namespace ProjectClasses
             {
                 SqlConnection connection = new SqlConnection(Settings.ConnectionString);
                 connection.Open();
-                string commandString = "INSERT INTO Teacher VALUES ('" + ID.ToString() + "', " + "'" + Name + "', " +Department+ "')";
-                string commandString2 = "INSERT INTO Accounts VALUES ('" + ID.ToString() + "', " + Username + ", " + Password + ", " + "Teacher" + "')";
+                string commandString = "INSERT INTO Teacher VALUES ('" + ID.ToString() + "', '" + Name + "', '" +Department+ "')";
+                string commandString2 = "INSERT INTO Accounts VALUES ('" + ID.ToString() + "', '" + Password + "', 'Teacher')";
                 SqlCommand command = new SqlCommand(commandString, connection);
+                SqlCommand command2 = new SqlCommand(commandString2, connection);
                 command.ExecuteNonQuery();
+                command2.ExecuteNonQuery();
                 MessageBox.Show("Saved");
                 connection.Close();
                 connection.Dispose();
@@ -44,10 +45,11 @@ namespace ProjectClasses
             SqlConnection connection = new SqlConnection(Settings.ConnectionString);
             connection.Open();
             string commandString = "UPDATE Teacher SET ID='" + ID.ToString() + "', Name='" + Name + "',  Department='" + Department + "'";
-            string commandString2 = "UPDATE Accounts SET ID='" + ID.ToString() + ", UN ='" + Username + "', PW='" + Password + "'";
+            string commandString2 = "UPDATE Accounts SET ID='" + ID.ToString() + "', PW='" + Password + "', Utype = 'Teacher'";
             SqlCommand command = new SqlCommand(commandString, connection);
             SqlCommand command2 = new SqlCommand(commandString2, connection);
             command.ExecuteNonQuery();
+            command2.ExecuteNonQuery();
             connection.Close();
             connection.Dispose();
         }
@@ -60,14 +62,14 @@ namespace ProjectClasses
             SqlCommand command = new SqlCommand(commandString, connection);
             SqlCommand command2 = new SqlCommand(commandString2, connection);
             command.ExecuteNonQuery();
+            command2.ExecuteNonQuery();
             connection.Close();
             connection.Dispose();
         }
 
         //Props
-        public int ID { get; set; }
+        public int ID { get; set; }//Eto na rin yung Username so, no need to use UN property
         public string Name { get; set; }
-        public string Username { get; set; }
         public string Password { get; set; }
         public string Department { get; set; }
 

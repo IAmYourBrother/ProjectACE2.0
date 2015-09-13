@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using ProjectClasses;
+using System.Data.SqlClient;
 
 namespace SGAutomatedElection
 {
@@ -16,7 +17,7 @@ namespace SGAutomatedElection
     /// </summary>
     public partial class MainWindow : Window
     {
-        private int flag = 0;
+        private int flag = 0, flag2 = 0;
         private string usertype;
         private Student aStudent;
         private Teacher aTeacher;
@@ -30,9 +31,6 @@ namespace SGAutomatedElection
         {
             PopulateDepartment();
             PopulateSection();
-            PopulateYear();
-            cmbxYrLevel.DisplayMemberPath = "Name";
-            cmbxYrLevel.SelectedValuePath = "Value";
             cmbxDepartment.DisplayMemberPath = "Name";
             cmbxDepartment.SelectedValuePath = "Value";
             cmbxSection.DisplayMemberPath = "Name";
@@ -50,18 +48,26 @@ namespace SGAutomatedElection
         }
         private void PopulateSection()
         {
-            cmbxSection.Items.Add(new { Name = "A", Value = "A" });
-            cmbxSection.Items.Add(new { Name = "B", Value = "B" });
-            cmbxSection.Items.Add(new { Name = "C", Value = "C" });
-            cmbxSection.Items.Add(new { Name = "D", Value = "D" });
-            cmbxSection.Items.Add(new { Name = "E", Value = "E" });
-        }
-        private void PopulateYear()
-        {
-            for (int i = 1; i < 5; i++)
-            {
-                cmbxYrLevel.Items.Add(new { Name = i.ToString(), Value = i.ToString() });
-            }
+            cmbxSection.Items.Add(new { Name = "1A", Value = "1A" });
+            cmbxSection.Items.Add(new { Name = "1B", Value = "1B" });
+            cmbxSection.Items.Add(new { Name = "1C", Value = "1C" });
+            cmbxSection.Items.Add(new { Name = "1D", Value = "1D" });
+            cmbxSection.Items.Add(new { Name = "1E", Value = "1E" });
+            cmbxSection.Items.Add(new { Name = "2A", Value = "2A" });
+            cmbxSection.Items.Add(new { Name = "2B", Value = "2B" });
+            cmbxSection.Items.Add(new { Name = "2C", Value = "2C" });
+            cmbxSection.Items.Add(new { Name = "2D", Value = "2D" });
+            cmbxSection.Items.Add(new { Name = "2E", Value = "2E" });
+            cmbxSection.Items.Add(new { Name = "3A", Value = "3A" });
+            cmbxSection.Items.Add(new { Name = "3B", Value = "3B" });
+            cmbxSection.Items.Add(new { Name = "3C", Value = "3C" });
+            cmbxSection.Items.Add(new { Name = "3D", Value = "3D" });
+            cmbxSection.Items.Add(new { Name = "3E", Value = "3E" });
+            cmbxSection.Items.Add(new { Name = "4A", Value = "4A" });
+            cmbxSection.Items.Add(new { Name = "4B", Value = "4B" });
+            cmbxSection.Items.Add(new { Name = "4C", Value = "4C" });
+            cmbxSection.Items.Add(new { Name = "4D", Value = "4D" });
+            cmbxSection.Items.Add(new { Name = "4E", Value = "4E" });
         }
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
@@ -122,22 +128,26 @@ namespace SGAutomatedElection
         }
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+            flag2 = 4;
             usertype = DetermineUser();
             ChangeAddLabel();
             ((Grid)FindName("gridManagementUser")).Visibility = System.Windows.Visibility.Collapsed;
             ((Grid)FindName("gridAddUser")).Visibility = System.Windows.Visibility.Visible;
-            ((Button)FindName("btnAddUser")).IsEnabled = false;
-            ((Button)FindName("btnAddUser")).Content = "Add";
+            ((Button)FindName("btnAddUser")).Visibility = System.Windows.Visibility.Visible;
+            ((Button)FindName("btnEditUser")).Visibility = System.Windows.Visibility.Collapsed;
+            //((Button)FindName("btnAddUser")).IsEnabled = false; why did i do this???
             ControlCollapse();
             EnableIfDisabled();
         }
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
+            flag2 = 5;
             usertype = DetermineUser();
             ChangeEditLabel();
             ((Grid)FindName("gridManagementUser")).Visibility = System.Windows.Visibility.Collapsed;
             ((Grid)FindName("gridAddUser")).Visibility = System.Windows.Visibility.Visible;
-            ((Button)FindName("btnAddUser")).Content = "Edit";
+            ((Button)FindName("btnAddUser")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Button)FindName("btnEditUser")).Visibility = System.Windows.Visibility.Visible;
             ControlCollapse();
             DisableForEdit();             
         }
@@ -146,7 +156,6 @@ namespace SGAutomatedElection
             ((TextBox)FindName("txtName")).IsEnabled = false;
             ((PasswordBox)FindName("pbPassword")).IsEnabled = false;
             ((PasswordBox)FindName("pbConfirmPassword")).IsEnabled = false;
-            ((ComboBox)FindName("cmbxYrLevel")).IsEnabled = false;
             ((ComboBox)FindName("cmbxSection")).IsEnabled = false;
             ((ComboBox)FindName("cmbxDepartment")).IsEnabled = false;
             ((Button)FindName("btnAddUser")).IsEnabled = false;
@@ -156,7 +165,6 @@ namespace SGAutomatedElection
             ((TextBox)FindName("txtName")).IsEnabled = true;
             ((PasswordBox)FindName("pbPassword")).IsEnabled = true;
             ((PasswordBox)FindName("pbConfirmPassword")).IsEnabled = true;
-            ((ComboBox)FindName("cmbxYrLevel")).IsEnabled = true;
             ((ComboBox)FindName("cmbxSection")).IsEnabled = true;
             ((ComboBox)FindName("cmbxDepartment")).IsEnabled = true;
             ((Button)FindName("btnAddUser")).IsEnabled = true;
@@ -213,19 +221,15 @@ namespace SGAutomatedElection
             }
             else if (flag == 2)
             {
-                ((ComboBox)FindName("cmbxYrLevel")).Visibility = System.Windows.Visibility.Collapsed;
                 ((ComboBox)FindName("cmbxSection")).Visibility = System.Windows.Visibility.Collapsed;
-                ((Label)FindName("lblYrLevel")).Visibility = System.Windows.Visibility.Collapsed;
                 ((Label)FindName("lblSection")).Visibility = System.Windows.Visibility.Collapsed;
                 ((Label)FindName("lblSN")).Visibility = System.Windows.Visibility.Collapsed;
             }
             else if (flag == 3)
             {
-                ((ComboBox)FindName("cmbxYrLevel")).Visibility = System.Windows.Visibility.Collapsed;
                 ((ComboBox)FindName("cmbxSection")).Visibility = System.Windows.Visibility.Collapsed;
                 ((ComboBox)FindName("cmbxDepartment")).Visibility = System.Windows.Visibility.Collapsed;
                 ((Label)FindName("lblDepartment")).Visibility = System.Windows.Visibility.Collapsed;
-                ((Label)FindName("lblYrLevel")).Visibility = System.Windows.Visibility.Collapsed;
                 ((Label)FindName("lblSN")).Visibility = System.Windows.Visibility.Collapsed;
                 ((Label)FindName("lblSection")).Visibility = System.Windows.Visibility.Collapsed;
             }
@@ -234,18 +238,233 @@ namespace SGAutomatedElection
         {
             ((Grid)FindName("gridManagementUser")).Visibility = System.Windows.Visibility.Visible;
             ((Grid)FindName("gridAddUser")).Visibility = System.Windows.Visibility.Collapsed;
-            ((ComboBox)FindName("cmbxYrLevel")).Visibility = System.Windows.Visibility.Visible;
             ((ComboBox)FindName("cmbxSection")).Visibility = System.Windows.Visibility.Visible;
+            ((ComboBox)FindName("cmbxSection")).SelectedIndex = -1; 
             ((ComboBox)FindName("cmbxDepartment")).Visibility = System.Windows.Visibility.Visible;
+            ((ComboBox)FindName("cmbxDepartment")).SelectedIndex = -1;
             ((Label)FindName("lblDepartment")).Visibility = System.Windows.Visibility.Visible;
-            ((Label)FindName("lblYrLevel")).Visibility = System.Windows.Visibility.Visible;
+            ((TextBox)FindName("txtName")).Clear();
+            ((TextBox)FindName("txtNumber")).Clear();
+            ((TextBox)FindName("txtName")).Clear();
+            ((PasswordBox)FindName("pbPassword")).Clear();
+            ((PasswordBox)FindName("pbConfirmPassword")).Clear();
             ((Label)FindName("lblSN")).Visibility = System.Windows.Visibility.Visible;
             ((Label)FindName("lblSection")).Visibility = System.Windows.Visibility.Visible;
         }
         //CRUD process
         private void btnAddUser_Click(object sender, RoutedEventArgs e)
         {
+            if (flag == 1)
+            {
+                aStudent = new Student(Convert.ToInt32(txtNumber.Text), txtName.Text, cmbxSection.Text, pbPassword.Password, false);
+                aStudent.Insert();
+            }
+            else if (flag == 2)
+            {
+                aTeacher = new Teacher(Convert.ToInt32(txtNumber.Text), txtName.Text, cmbxDepartment.Text, pbPassword.Password);
+                aTeacher.Insert();
+            }
+            else if (flag == 3)
+            {
+                aAdmin = new Admin(Convert.ToInt32(txtNumber.Text), txtName.Text, pbPassword.Password);
+                aAdmin.Insert();
+            }
+        }
 
+        private void btnEditUser_Click(object sender, RoutedEventArgs e)
+        {
+            if (flag == 1)
+            {
+                aStudent = new Student(Convert.ToInt32(txtNumber.Text), txtName.Text,  cmbxSection.Text, pbPassword.Password, false);
+                aStudent.Update();
+            }
+            else if (flag == 2)
+            {
+                aTeacher = new Teacher(Convert.ToInt32(txtNumber.Text), txtName.Text, cmbxDepartment.Text, pbPassword.Password);
+                aTeacher.Update();
+            }
+            else if (flag == 3)
+            {
+                aAdmin = new Admin(Convert.ToInt32(txtNumber.Text), txtName.Text, pbPassword.Password);
+                aAdmin.Update();
+            }
+        }
+
+        private void txtNumber_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (flag2 == 4) // add window ito
+            {
+                DoNothing();
+            }
+            else if (flag2 == 5)//edit ito, do something 
+            {
+                if (e.Key == System.Windows.Input.Key.Enter)
+                {
+                    ToggleControls(true);
+                    if (flag == 1)
+                    {
+                        try
+                        {
+                            GetStudent(Convert.ToInt32(txtNumber.Text));
+                        }
+                        catch (Exception ex)
+                        {
+
+                            MessageBox.Show(ex.ToString());
+                        }                       
+                    }
+                    else if (flag == 2)
+                    {
+                        try
+                        {
+                            GetTeacher(Convert.ToInt32(txtNumber.Text));
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.ToString()); 
+                        }
+                    }
+                    else if (flag ==3)
+                    {
+                        try
+                        {
+                            GetAdmin(Convert.ToInt32(txtNumber.Text));
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.ToString());
+                        }
+                    }
+                }
+            }
+        }
+        public void GetStudent(int number)
+        {
+            string comstr = "SELECT * from Student WHERE ID = '" + number.ToString() + "'";
+            string comstr2 = "SELECT * from Accounts WHERE ID = '" + number.ToString() + "'";
+            using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(comstr, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    txtName.Text = reader["Name"].ToString();
+                    cmbxSection.Text = reader["YearSection"].ToString();
+                }
+                reader.Close();
+                SqlCommand command2= new SqlCommand(comstr2, connection);
+                SqlDataReader reader2 = command2.ExecuteReader();
+                while (reader2.Read())
+                {
+                    pbPassword.Password = reader2["PW"].ToString();
+                    pbConfirmPassword.Password = reader2["PW"].ToString();
+                }
+                reader2.Close();
+            }
+        }
+        public void GetTeacher(int number)
+        {
+            string comstr = "SELECT * from Teacher WHERE ID = '" + number.ToString() + "'";
+            string comstr2 = "SELECT * from Accounts WHERE ID = '" + number.ToString() + "'";
+            using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(comstr, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    txtName.Text = reader["Name"].ToString();
+                    cmbxSection.Text = reader["Department"].ToString();
+                }
+                reader.Close();
+                SqlCommand command2 = new SqlCommand(comstr2, connection);
+                SqlDataReader reader2 = command2.ExecuteReader();
+                while (reader2.Read())
+                {
+                    pbPassword.Password = reader2["PW"].ToString();
+                    pbConfirmPassword.Password = reader2["PW"].ToString();
+                }
+                reader2.Close();
+            }
+        }
+        public string GetUType(int number)
+        {
+            string Utype = "";
+
+            string comstr = "SELECT * from Accounts WHERE ID ='" + number.ToString()+"'";
+            using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(comstr, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Utype = reader["Utype"].ToString();
+                }
+            }
+            return Utype;
+        }
+        public void GetAdmin(int number)
+        {
+            string comstr = "SELECT * from Admin WHERE ID = '" + number.ToString() + "'";
+            string comstr2 = "SELECT * from Accounts WHERE ID = '" + number.ToString() + "'";
+            using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(comstr, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    txtName.Text = reader["Name"].ToString();
+                }
+                reader.Close();
+                SqlCommand command2 = new SqlCommand(comstr2, connection);
+                SqlDataReader reader2 = command2.ExecuteReader();
+                while (reader2.Read())
+                {
+                    pbPassword.Password = reader2["PW"].ToString();
+                    pbConfirmPassword.Password = reader2["PW"].ToString();
+                }
+                reader2.Close();
+            }
+        }
+
+        private void ToggleControls(bool isEnabled)
+        {
+            cmbxDepartment.IsEnabled =
+            cmbxSection.IsEnabled =
+            txtName.IsEnabled =
+            pbPassword.IsEnabled =
+            pbConfirmPassword.IsEnabled = isEnabled;
+        }
+        private void DoNothing()
+        {
+            //does amazingly NOTHING!!!
+        }
+
+        private void txtDeleteNumber_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            //write some code
+            string usertype = GetUType(Convert.ToInt32(txtDeleteNumber.Text));
+            if (usertype == "Student")
+            {
+                
+            }
+            else if(usertype == "Teacher")
+            {
+
+            }
+            else if (usertype == "Admin")
+            {
+                
+            }
+        }
+
+        private void txtDeleteNumber_GotFocus(object sender, RoutedEventArgs e)
+        {
+            ((TextBox)FindName("txtDeleteNumber")).Clear();
+            ((TextBox)FindName("txtDeleteNumber")).Foreground = new SolidColorBrush(Colors.Black);
         }
     }
     

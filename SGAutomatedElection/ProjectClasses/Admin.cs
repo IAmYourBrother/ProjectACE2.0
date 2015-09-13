@@ -9,9 +9,11 @@ namespace ProjectClasses
 {
     public class Admin : IQuery
     {
-        public Admin()
+        public Admin(int id, string name, string password)
         {
-
+            ID = id;
+            Name = name;
+            Password = password;
         }
         //IQuery methods
         public void Insert()
@@ -21,10 +23,11 @@ namespace ProjectClasses
                 SqlConnection connection = new SqlConnection(Settings.ConnectionString);
                 connection.Open();
                 string commandString = "INSERT INTO Administrator VALUES ('" + ID.ToString() + "', " + "'" + Name +"')";
-                string commandString2 = "INSERT INTO Accounts VALUES ('" + ID.ToString() + "', " + Username + ", " + Password + ", " + "Admin" + "')";
+                string commandString2 = "INSERT INTO Accounts VALUES ('" + ID.ToString() + "', '" + Password + "', 'Admin')";
                 SqlCommand command = new SqlCommand(commandString, connection);
                 SqlCommand command2 = new SqlCommand(commandString2, connection);
                 command.ExecuteNonQuery();
+                command2.ExecuteNonQuery();
                 MessageBox.Show("Saved");
                 connection.Close();
                 connection.Dispose();
@@ -39,10 +42,11 @@ namespace ProjectClasses
             SqlConnection connection = new SqlConnection(Settings.ConnectionString);
             connection.Open();
             string commandString = "UPDATE Administrator SET ID='" + ID.ToString() + "', Name='" + Name +"'";
-            string commandString2 = "UPDATE Accounts SET ID='" + ID.ToString() + ", UN ='" + Username + "', PW='" + Password + "'";
+            string commandString2 = "UPDATE Accounts SET ID='" + ID.ToString() + "', PW='" + Password + "', Utype = Admin";
             SqlCommand command = new SqlCommand(commandString, connection);
             SqlCommand command2 = new SqlCommand(commandString2, connection);
             command.ExecuteNonQuery();
+            command2.ExecuteNonQuery();
             connection.Close();
             connection.Dispose();
         }
@@ -55,15 +59,14 @@ namespace ProjectClasses
             SqlCommand command = new SqlCommand(commandString, connection);
             SqlCommand command2 = new SqlCommand(commandString2, connection);
             command.ExecuteNonQuery();
-            
+            command2.ExecuteNonQuery();
             connection.Close();
             connection.Dispose();
         }
 
         //props
-        public int ID { get; set; }
+        public int ID { get; set; }//Eto na rin yung Username so, no need to use UN property
         public string Name { get; set; }
-        public string Username { get; set; }
         public string Password { get; set; }
     }
 }
