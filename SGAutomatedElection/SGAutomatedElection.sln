@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGAutomatedElection", "SGAutomatedElection\SGAutomatedElection.csproj", "{DB0097BD-6569-45C2-A882-F369877C331E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectClasses", "ProjectClasses\ProjectClasses.csproj", "{724D5ED4-B70F-4271-8D5B-D064760E70F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{DB0097BD-6569-45C2-A882-F369877C331E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB0097BD-6569-45C2-A882-F369877C331E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB0097BD-6569-45C2-A882-F369877C331E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{724D5ED4-B70F-4271-8D5B-D064760E70F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{724D5ED4-B70F-4271-8D5B-D064760E70F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{724D5ED4-B70F-4271-8D5B-D064760E70F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{724D5ED4-B70F-4271-8D5B-D064760E70F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using ProjectClasses;
 
 namespace SGAutomatedElection
 {
@@ -22,12 +18,51 @@ namespace SGAutomatedElection
     {
         private int flag = 0;
         private string usertype;
+        private Student aStudent;
+        private Teacher aTeacher;
+        private Admin aAdmin;
         public MainWindow()
         {
 
             InitializeComponent();
         }
-
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            PopulateDepartment();
+            PopulateSection();
+            PopulateYear();
+            cmbxYrLevel.DisplayMemberPath = "Name";
+            cmbxYrLevel.SelectedValuePath = "Value";
+            cmbxDepartment.DisplayMemberPath = "Name";
+            cmbxDepartment.SelectedValuePath = "Value";
+            cmbxSection.DisplayMemberPath = "Name";
+            cmbxSection.SelectedValuePath = "Value";
+        }
+        private void PopulateDepartment()
+        {
+            cmbxDepartment.Items.Clear();
+            cmbxDepartment.Items.Add(new {Name = "Math", Value="Math"});
+            cmbxDepartment.Items.Add(new { Name = "Science", Value = "Science" });
+            cmbxDepartment.Items.Add(new { Name = "English", Value = "English" });
+            cmbxDepartment.Items.Add(new { Name = "AP", Value = "AP" });
+            cmbxDepartment.Items.Add(new { Name = "Filipino", Value = "Filipino" });
+            cmbxDepartment.Items.Add(new { Name = "TVE", Value = "TVE" });
+        }
+        private void PopulateSection()
+        {
+            cmbxSection.Items.Add(new { Name = "A", Value = "A" });
+            cmbxSection.Items.Add(new { Name = "B", Value = "B" });
+            cmbxSection.Items.Add(new { Name = "C", Value = "C" });
+            cmbxSection.Items.Add(new { Name = "D", Value = "D" });
+            cmbxSection.Items.Add(new { Name = "E", Value = "E" });
+        }
+        private void PopulateYear()
+        {
+            for (int i = 1; i < 5; i++)
+            {
+                cmbxYrLevel.Items.Add(new { Name = i.ToString(), Value = i.ToString() });
+            }
+        }
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             ((Grid)FindName("gridAdmin")).Visibility = System.Windows.Visibility.Visible;
@@ -74,21 +109,17 @@ namespace SGAutomatedElection
         {
 
         }
-
-
         private void txtPass_GotFocus(object sender, RoutedEventArgs e)
         {
             ((PasswordBox)FindName("txtPass")).Clear();
             ((PasswordBox)FindName("txtPass")).Foreground = new SolidColorBrush(Colors.Black);
         }
-
         private void txtUsername_GotFocus(object sender, RoutedEventArgs e)
         {
             ((TextBox)FindName("txtUsername")).Clear();
             ((TextBox)FindName("txtUsername")).FontStyle = FontStyles.Normal;
             ((TextBox)FindName("txtUsername")).Foreground = new SolidColorBrush(Colors.Black);
         }
-
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             usertype = DetermineUser();
@@ -110,7 +141,6 @@ namespace SGAutomatedElection
             ControlCollapse();
             DisableForEdit();             
         }
-
         private void DisableForEdit()
         {
             ((TextBox)FindName("txtName")).IsEnabled = false;
@@ -131,7 +161,6 @@ namespace SGAutomatedElection
             ((ComboBox)FindName("cmbxDepartment")).IsEnabled = true;
             ((Button)FindName("btnAddUser")).IsEnabled = true;
         }
-
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             usertype = DetermineUser();
@@ -139,13 +168,11 @@ namespace SGAutomatedElection
             ((Grid)FindName("gridManagementUser")).Visibility = System.Windows.Visibility.Collapsed;
             ((Grid)FindName("gridUserSearch")).Visibility = System.Windows.Visibility.Visible;
         }
-
         private void btnManage_Click(object sender, RoutedEventArgs e)
         {
             ((Grid)FindName("gridAdmin")).Visibility = System.Windows.Visibility.Collapsed;
             ((Grid)FindName("gridManageMain")).Visibility = System.Windows.Visibility.Visible;
         }
-
         private string DetermineUser()
         {
             string userlabel = "";
@@ -170,7 +197,7 @@ namespace SGAutomatedElection
         }
         private void ChangeEditLabel()
         {
-            ((Label)FindName("lblEditUser")).Content = "Edit Existing " + usertype;
+            ((Label)FindName("lblAddUser")).Content = "Edit Existing " + usertype;
         }
         private void ChangeDeleteLabel()
         {
@@ -214,6 +241,11 @@ namespace SGAutomatedElection
             ((Label)FindName("lblYrLevel")).Visibility = System.Windows.Visibility.Visible;
             ((Label)FindName("lblSN")).Visibility = System.Windows.Visibility.Visible;
             ((Label)FindName("lblSection")).Visibility = System.Windows.Visibility.Visible;
+        }
+        //CRUD process
+        private void btnAddUser_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
     

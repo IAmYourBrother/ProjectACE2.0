@@ -1,9 +1,9 @@
 ﻿<Window x:Class="SGAutomatedElection.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Project ACE" Height="500" Width="900" Background="Silver">
+        Title="Project ACE" Height="500" Width="900" Background="Silver" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid >
-        <Grid x:Name="gridLogin" Visibility="Collapsed">
+        <Grid x:Name="gridLogin" Visibility="Visible">
             <PasswordBox x:Name="txtPass" HorizontalAlignment="Left" Margin="362,320,0,0" VerticalAlignment="Top" Width="177" Height="25"
                          Foreground="Gray" FontStyle="Italic" Password="******" GotFocus="txtPass_GotFocus" KeyboardNavigation.TabIndex="2"/>
             <TextBox x:Name="txtUsername" HorizontalAlignment="Left" Height="25" Margin="362,279,0,0" TextWrapping="Wrap" 
@@ -95,7 +95,7 @@
                 <PasswordBox x:Name="pbPassword" Height="25" Width="210" Margin="0,0,0,5"/>
                 <PasswordBox x:Name="pbConfirmPassword" Height="25" Width="210" Margin="0,0,0,5"/>
                 <StackPanel Orientation="Horizontal" Height="30" Width="200">
-                    <Button x:Name="btnAddUser" Content="Add" Height="20" Width="50" Margin="25,0,50,0"/>
+                    <Button x:Name="btnAddUser" Content="Add" Height="20" Width="50" Margin="25,0,50,0" Click="btnAddUser_Click"/>
                     <Button x:Name="btnCancel" Content="Cancel" Height="20" Width="50" Click="btnCancel_Click"/>
                 </StackPanel>
             </StackPanel>
@@ -110,7 +110,7 @@
                 <Label Content="Confirm Password" Margin="0,0,0,5"/>
             </StackPanel>
         </Grid>
-        <Grid x:Name="gridUserSearch" Visibility="Visible">
+        <Grid x:Name="gridUserSearch" Visibility="Collapsed">
             <Label x:Name="lblDeleteUser" Content="Delete User" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
             <ListView x:Name="lstUsers" Margin="266,178,241,20" Width="385" HorizontalAlignment="Center" Height="275">
                 <ListView.View>
