@@ -15,6 +15,7 @@ namespace ProjectClasses
             Name = name;
             YearLevel = year;
             Section = section;
+            Username = username;
             Password = password;
             HasVoted = hasvoted;
         }
@@ -25,9 +26,10 @@ namespace ProjectClasses
             {
                 SqlConnection connection = new SqlConnection(Settings.ConnectionString);
                 connection.Open();
-                string commandString = "INSERT INTO Students VALUES ('" + ID.ToString() + "', " + "'" + Name + "', " + YearLevel.ToString() + Section + "')";
-
+                string commandString = "INSERT INTO Student VALUES ('" + ID.ToString() + "', " + "'" + Name + "', " + YearLevel.ToString() + Section + "')";
+                string commandString2 = "INSERT INTO Accounts VALUES ('"+ID.ToString()+"', "+Username+", "+Password+", "+"Student"+"')";
                 SqlCommand command = new SqlCommand(commandString, connection);
+                SqlCommand command2 = new SqlCommand(commandString2, connection);
                 command.ExecuteNonQuery();
                 MessageBox.Show("Saved");
                 connection.Close();
@@ -42,10 +44,10 @@ namespace ProjectClasses
         {
             SqlConnection connection = new SqlConnection(Settings.ConnectionString);
             connection.Open();
-
-            string commandString = "UPDATE Students SET ID='" +ID.ToString()+ "', Name='" +Name+ "',  YearSection='" +YearLevel.ToString() + Section+  "'";
-
+            string commandString = "UPDATE Student SET ID='" +ID.ToString()+ "', Name='" +Name+ "',  YearSection='" +YearLevel.ToString() + Section+  "'";
+            string commandString2 = "UPDATE Accounts SET ID='" + ID.ToString() + ", UN ='" + Username + "', PW='" + Password + "'";
             SqlCommand command = new SqlCommand(commandString, connection);
+            SqlCommand command2 = new SqlCommand(commandString2, connection);
             command.ExecuteNonQuery();
             connection.Close();
             connection.Dispose();
@@ -54,12 +56,11 @@ namespace ProjectClasses
         {
             SqlConnection connection = new SqlConnection(Settings.ConnectionString);
             connection.Open();
-
-            string commandString = "DELETE FROM Students WHERE ID='" +ID+ "'";
-
+            string commandString = "DELETE FROM Student WHERE ID='" +ID.ToString()+ "'";
+            string commandString2 = "DELETE FROM Accounts WHERE ID='" + ID.ToString() + "'";
             SqlCommand command = new SqlCommand(commandString, connection);
+            SqlCommand command2 = new SqlCommand(commandString2, connection);
             command.ExecuteNonQuery();
-
             connection.Close();
             connection.Dispose();
         }
