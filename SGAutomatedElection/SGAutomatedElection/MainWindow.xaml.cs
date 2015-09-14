@@ -23,6 +23,7 @@ namespace SGAutomatedElection
         private Teacher aTeacher;
         private Admin aAdmin;
         private List<StudentListViewItem> students = new List<StudentListViewItem>();
+        private List<CandidateListViewItem> candidates = new List<CandidateListViewItem>();
         public MainWindow()
         {
 
@@ -73,8 +74,34 @@ namespace SGAutomatedElection
         }
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            ((Grid)FindName("gridAdmin")).Visibility = System.Windows.Visibility.Visible;
-            ((Grid)FindName("gridLogin")).Visibility = System.Windows.Visibility.Collapsed;
+            
+            try
+            {
+                if (txtPass.Password == GetPass(Convert.ToInt32(txtUsername.Text)))
+                {
+                    ((Grid)FindName("gridLogin")).Visibility = System.Windows.Visibility.Collapsed;
+                    if (GetUType(Convert.ToInt32(txtUsername.Text))== "Admin")
+                    {
+                        ((Grid)FindName("gridAdmin")).Visibility = System.Windows.Visibility.Visible;
+                    }
+                    else if (GetUType(Convert.ToInt32(txtUsername.Text))== "Teacher")
+                    {
+                        ((Grid)FindName("gridTeacher")).Visibility = System.Windows.Visibility.Visible;
+                    }
+                    else if (GetUType(Convert.ToInt32(txtUsername.Text))== "Student")
+                    {
+                        ((Grid)FindName("gridStudent")).Visibility = System.Windows.Visibility.Visible;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Incorrect Username/Password!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Do not leave empty fields!");
+            }
 
         }
         private void btnALogout_Click(object sender, RoutedEventArgs e)
@@ -425,7 +452,23 @@ namespace SGAutomatedElection
                 reader2.Close();
             }
         }
-
+        public string GetPass(int number)
+        {
+            string pass ="";
+            string comstr = "SELECT * from Accounts WHERE ID = '" + number.ToString() + "'";
+            using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(comstr, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                     pass = reader["PW"].ToString();
+                }
+                reader.Close();
+            }
+            return pass;
+        }
         private void ToggleControls(bool isEnabled)
         {
             cmbxDepartment.IsEnabled =
@@ -524,7 +567,37 @@ namespace SGAutomatedElection
                         YearSection = reader["YearSection"].ToString()
                     });
                 }
-              //  lstUsers.ItemsSource = students;
+                reader.Close();
+                lstVoters.ItemsSource = students;
+            }
+        }
+        public void PopulateCList()
+        {
+            string comStr =
+                "SELECT " +
+                    "Candidates.ID AS ID, " +
+                    "Candidates.Name AS Name, " +
+                    "Candidates.Party AS Party " +
+                    "Candidates.Position AS Party"+
+                "FROM Candidates";
+
+            using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(comStr, connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    candidates.Add(new CandidateListViewItem()
+                    {
+                        ID = Convert.ToInt32(reader["ID"]),
+                        Name = reader["Name"].ToString(),
+                        Party = reader["Party"].ToString(),
+                        Position = reader["Position"].ToString()//pdeng di ko muna iretrieve ung votes
+                    });
+                }
+                //  lstVoters.ItemsSource = students;
             }
         }
         public void ClearFields()
@@ -551,7 +624,9 @@ namespace SGAutomatedElection
 
         private void btnListStudents_Click(object sender, RoutedEventArgs e)
         {
-
+            ((Grid)FindName("gridViewer")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridVoters")).Visibility = System.Windows.Visibility.Visible;
+            PopulateSList();
         }
 
         private void btnParties_Click(object sender, RoutedEventArgs e)
@@ -561,7 +636,7 @@ namespace SGAutomatedElection
 
         private void btnCandidates_Click(object sender, RoutedEventArgs e)
         {
-
+            //PopulateCList();
         }
         /*
         public string Name //gawa tayo data bind kay Name, to do that, we get the id from Convert.ToInt32(txtDeleteNumber.Text)<- ok na to

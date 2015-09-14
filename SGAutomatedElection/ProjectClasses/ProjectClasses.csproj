@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Admin.cs" />
     <Compile Include="Candidate.cs" />
+    <Compile Include="CandidateListViewItem.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="IQuery.cs" />
     <Compile Include="Program.cs" />

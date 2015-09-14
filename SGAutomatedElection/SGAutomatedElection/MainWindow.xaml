@@ -175,10 +175,27 @@
         <Grid x:Name="gridViewer" Visibility="Collapsed">
             <Label Content="View Listings Panel" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
             <StackPanel HorizontalAlignment="Left" Height="190" Margin="244,170,0,0" VerticalAlignment="Top" Width="380">
-                <Button x:Name="btnListStudents" Content="Manage Students" Margin="0,5,0,0" Height="56" Click="btnListStudents_Click"/>
-                <Button x:Name="btnParties" Content="Manage Teachers" Margin="0,5,0,0" Height="56" Click="btnParties_Click"/>
-                <Button x:Name="btnCandidates" Content="Manage Administrators" Margin="0,5,0,0" Height="56" Click="btnCandidates_Click"/>
+                <Button x:Name="btnListStudents" Content="List of Voters" Margin="0,5,0,0" Height="56" Click="btnListStudents_Click"/>
+                <Button x:Name="btnParties" Content="List of Parties" Margin="0,5,0,0" Height="56" Click="btnParties_Click"/>
+                <Button x:Name="btnCandidates" Content="List of  Candidates" Margin="0,5,0,0" Height="56" Click="btnCandidates_Click"/>
             </StackPanel>            
+        </Grid>
+        <Grid x:Name="gridVoters" Visibility="Collapsed">
+            <ListView x:Name="lstVoters" Width="400">
+                <ListView.View>
+                    <GridView AllowsColumnReorder="False">
+                        <GridViewColumn Header="ID" Width="130" DisplayMemberBinding="{Binding ID}"/>
+                        <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="Year Section" Width="100" DisplayMemberBinding="{Binding YearSection}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        <Grid x:Name="gridParties">
+
+        </Grid>
+        <Grid x:Name="gridCandidates">
+
         </Grid>
         <Grid x:Name="gridElectoralResults" Visibility="Collapsed">
         </Grid>

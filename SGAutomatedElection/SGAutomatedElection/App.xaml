@@ -6,6 +6,8 @@
         <Style TargetType="TextBox">
             <Setter Property="Padding" Value="2"/>
         </Style>
- 
+        <Style TargetType="Button">
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
     </Application.Resources>
 </Application>
