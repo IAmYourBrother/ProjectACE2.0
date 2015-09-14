@@ -3,14 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Project ACE" Height="500" Width="900" Background="Silver" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid >
-        <Grid x:Name="gridLogin" Visibility="Collapsed">
+        <Grid x:Name="gridLogin" Visibility="Visible">
             <PasswordBox x:Name="txtPass" HorizontalAlignment="Left" Margin="362,320,0,0" VerticalAlignment="Top" Width="177" Height="25"
                          Foreground="Gray" FontStyle="Italic" Password="******" GotFocus="txtPass_GotFocus" KeyboardNavigation.TabIndex="2"/>
-            <TextBox x:Name="txtUsername" HorizontalAlignment="Left" Height="25" Margin="362,279,0,0" TextWrapping="Wrap" 
+            <TextBox x:Name="txtUsername" HorizontalAlignment="Left" Height="25" Margin="362,285,0,0" TextWrapping="Wrap" 
                      VerticalAlignment="Top" Width="177" Foreground="Gray" FontStyle="Italic" Text="Enter Username" GotFocus="txtUsername_GotFocus" KeyboardNavigation.TabIndex="1"/>
             <Button x:Name="btnLogin" Content="Log In" HorizontalAlignment="Left" Margin="400,373,0,0" VerticalAlignment="Top" Width="75" Cursor="Hand" Click="btnLogin_Click" Height="24" KeyboardNavigation.TabIndex="3"/>
-            <StackPanel Orientation="Horizontal" Width="177" Height="177" Margin="349,24,366,272">
-                <Image Source="Images\logo.png" Width="177" Height="177" Margin="0,23,0,-23" KeyboardNavigation.TabIndex="0"/>
+            <StackPanel Orientation="Vertical" Width="410" Margin="241,46,241,193">
+                <StackPanel Orientation="Horizontal" Width="177" Height="177">
+                    <Image Source="Images\logo.png" Width="177" Height="177" KeyboardNavigation.TabIndex="0"/>
+                </StackPanel>
+                <Label Content="     Automated Campus Election"  FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black" Width="406"/>
             </StackPanel>
         </Grid>
         <Grid x:Name="gridStudent" Visibility="Collapsed">
@@ -25,11 +28,11 @@
         <Grid x:Name="gridAdmin" Visibility="Collapsed" Height="473" VerticalAlignment="Bottom" Margin="10,0,-10,0">
             <Label Content="Administrator Control Panel" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
             <StackPanel HorizontalAlignment="Left" Height="150" Margin="215,193,0,0" VerticalAlignment="Top" Width="459" Orientation="Horizontal">
-                <Button x:Name="btnViewCandidates" Width="150" Height="150" BorderThickness="0" Margin="0,0,5,0" Background="Gray"  Cursor="Hand">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="Images\search.png" Width="150" Height="150"/>
-                        <TextBlock Text="text" VerticalAlignment="Center" />
-                    </StackPanel>
+                <Button x:Name="btnViewCandidates" Width="150" Height="150" BorderThickness="0" Margin="0,0,5,0" Background="Gray"  Cursor="Hand" Click="btnViewCandidates_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="Images\search.png" Width="150" Height="150"/>
+                    <TextBlock Text="text" VerticalAlignment="Center"/>
+                </StackPanel>
                 </Button>
                 <Button x:Name="btnManage" Width="150" Height="150" BorderThickness="0" Margin="0,0,5,0" Background="Gray" Cursor="Hand" Click="btnManage_Click">
                     <StackPanel Orientation="Horizontal">
@@ -109,40 +112,75 @@
                 <Label Content="Confirm Password" Margin="0,0,0,5"/>
             </StackPanel>
         </Grid>
-        <Grid x:Name="gridUserSearch" Visibility="Visible">
+        <Grid x:Name="gridUserSearch" Visibility="Collapsed">
             <Label x:Name="lblDeleteUser" Content="Delete User" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-            <StackPanel Orientation="Horizontal" Width="300" Height="25" Margin="265,424,327,25">
-                <TextBox x:Name="txtDeleteNumber" Width="284" Height="25" KeyDown="txtDeleteNumber_KeyDown" 
-            		Foreground="Gray" FontStyle="Italic" Text="Enter User Number" GotFocus="txtDeleteNumber_GotFocus" />
+            <StackPanel Orientation="Vertical">
+                <TextBox x:Name="txtDeleteNumber" Width="385" Height="25" KeyDown="txtDeleteNumber_KeyDown" 
+            		Foreground="Gray" FontStyle="Italic" Text="Enter User Number" GotFocus="txtDeleteNumber_GotFocus" Margin="0,200,0,0" />
             </StackPanel>
-            <ListView x:Name="lstUsers" Margin="265,130,242,68" Width="385" Height="275">
-                <ListView.View>
-                    <GridView AllowsColumnReorder="False">
-                        <GridViewColumn Header="ID Number" Width="130" DisplayMemberBinding="{Binding UserID}"/>
-                        <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"/>
-                        <GridViewColumn Header="Year-Section" Width="100" DisplayMemberBinding="{Binding YrLevelSection}"/>
-                    </GridView>
-                </ListView.View>
-
-            </ListView>
         </Grid>
-
         <!--All grids below concern the Electoral Process and Registration-->
         <Grid x:Name="gridRegisterParty" Visibility="Collapsed">
             <Label Content="Register New Party" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-            <Label Content="Name of Party" Margin="40,128,761,315" />
-            <Label Content="Add Set of Positions" Margin="40,222,735,227" />
-            <Button x:Name="btnAddPartyMembers" Content="Add" Click="btnAddPartyMembers_Click" Margin="199,174,631,272"/>
-            <Label Content="Add Party Members" Margin="40,174,727,272" />
-            <Button x:Name="btnAddPositions" Content="Add" Click="btnAddPartyMembers_Click" Margin="199,227,631,219"/>
-            <TextBox HorizontalAlignment="Left" Height="23" Margin="171,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-            <Label Content="User Type"/>
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Width="300" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,150,0,5">
+                    <Label Content="Name of Party" Width="100" Margin="0,0,10,0"/>
+                    <TextBox TextWrapping="Wrap" VerticalAlignment="Center" Width="190" Height="25"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Width="300" Height="30" Visibility="Visible" Margin="0,0,0,5">
+                    <Label Content=" Party Members" Width="100" Margin="0,0,10,0"/>
+                    <Button x:Name="btnAddPartyMembers" Content="Add" Click="btnAddPartyMembers_Click" Width="55" Height="25" Margin="0,0,12,0"/>
+                    <Button x:Name="btnEditPartyMembers" Content="Edit" Click="btnAddPartyMembers_Click" Width="55" Height="25" Margin="0,0,12,0"/>
+                    <Button x:Name="btnDeletePartyMembers" Content="Delete" Click="btnAddPartyMembers_Click" Width="55" Height="25" Margin="0,0,12,0"/>
+                </StackPanel>
+                <GroupBox Header="Assign Member Positions" Height="210" Width="310">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical" Width="100">
+                            <Label Content="President" Margin="0,0,0,5"/>
+                            <Label Content="Vice President" Margin="0,0,0,5"/>
+                            <Label Content="Secretary" Margin="0,0,0,5"/>
+                            <Label Content="Treasurer" Margin="0,0,0,5"/>
+                            <Label Content="Public Relations" Margin="0,0,0,5"/>
+                            <Label Content="Peace Officer" Margin="0,0,0,5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Width="190">
+                            <!--Needs checker for candidates that may repeat in selection-->
+                            <ComboBox x:Name="cmbxPresident" Width="190" Height="26" Margin="0,0,0,5"/>
+                            <ComboBox x:Name="cmbxVPresident" Width="190" Height="26" Margin="0,0,0,5"/>
+                            <ComboBox x:Name="cmbxSecretary" Width="190" Height="26" Margin="0,0,0,5"/>
+                            <ComboBox x:Name="cmbxTreasurer" Width="190" Height="26" Margin="0,0,0,5"/>
+                            <ComboBox x:Name="cmbxPR" Width="190" Height="26" Margin="0,0,0,5"/>
+                            <ComboBox x:Name="cmbxPO" Width="190" Height="26" Margin="0,0,0,5"/>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
         </Grid>
         <Grid x:Name="gridAddPartyMembers" Visibility="Collapsed">
+            <Label Content="Add Party Members" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+            <StackPanel Orientation="Vertical" Width="320" Margin="286,124,286,36">
+                <ListBox x:Name="lstAddCandidates" Height="177">
+                    
+                </ListBox>
+                <StackPanel Orientation="Horizontal" Height="100" Width="300">
+                    <Label Content="Enter Student Number: " Height="25"/>
+                    <TextBox x:Name="txtAddCandidate" Width="160" Height="25" Margin="0,38"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Height="25" Width="150" Margin="129,0,41,0">
+                    <Button x:Name="btnAddCandidate" Content="Add" Width="50" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnAddCandidate_Click"/>
+                </StackPanel>
+            </StackPanel>
 
         </Grid>
+        <Grid x:Name="gridViewer" Visibility="Collapsed">
+            <Label Content="View Listings Panel" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+            <StackPanel HorizontalAlignment="Left" Height="190" Margin="244,170,0,0" VerticalAlignment="Top" Width="380">
+                <Button x:Name="btnListStudents" Content="Manage Students" Margin="0,5,0,0" Height="56" Click="btnListStudents_Click"/>
+                <Button x:Name="btnParties" Content="Manage Teachers" Margin="0,5,0,0" Height="56" Click="btnParties_Click"/>
+                <Button x:Name="btnCandidates" Content="Manage Administrators" Margin="0,5,0,0" Height="56" Click="btnCandidates_Click"/>
+            </StackPanel>            
+        </Grid>
         <Grid x:Name="gridElectoralResults" Visibility="Collapsed">
-
         </Grid>
     </Grid>
 </Window>

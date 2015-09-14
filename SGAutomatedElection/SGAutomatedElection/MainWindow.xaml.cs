@@ -22,6 +22,7 @@ namespace SGAutomatedElection
         private Student aStudent;
         private Teacher aTeacher;
         private Admin aAdmin;
+        private List<StudentListViewItem> students = new List<StudentListViewItem>();
         public MainWindow()
         {
 
@@ -31,6 +32,7 @@ namespace SGAutomatedElection
         {
             PopulateDepartment();
             PopulateSection();
+            PopulateSList();
             cmbxDepartment.DisplayMemberPath = "Name";
             cmbxDepartment.SelectedValuePath = "Value";
             cmbxSection.DisplayMemberPath = "Name";
@@ -135,7 +137,6 @@ namespace SGAutomatedElection
             ((Grid)FindName("gridAddUser")).Visibility = System.Windows.Visibility.Visible;
             ((Button)FindName("btnAddUser")).Visibility = System.Windows.Visibility.Visible;
             ((Button)FindName("btnEditUser")).Visibility = System.Windows.Visibility.Collapsed;
-            //((Button)FindName("btnAddUser")).IsEnabled = false; why did i do this???
             ControlCollapse();
             EnableIfDisabled();
         }
@@ -239,17 +240,11 @@ namespace SGAutomatedElection
             ((Grid)FindName("gridManagementUser")).Visibility = System.Windows.Visibility.Visible;
             ((Grid)FindName("gridAddUser")).Visibility = System.Windows.Visibility.Collapsed;
             ((ComboBox)FindName("cmbxSection")).Visibility = System.Windows.Visibility.Visible;
-            ((ComboBox)FindName("cmbxSection")).SelectedIndex = -1; 
             ((ComboBox)FindName("cmbxDepartment")).Visibility = System.Windows.Visibility.Visible;
-            ((ComboBox)FindName("cmbxDepartment")).SelectedIndex = -1;
             ((Label)FindName("lblDepartment")).Visibility = System.Windows.Visibility.Visible;
-            ((TextBox)FindName("txtName")).Clear();
-            ((TextBox)FindName("txtNumber")).Clear();
-            ((TextBox)FindName("txtName")).Clear();
-            ((PasswordBox)FindName("pbPassword")).Clear();
-            ((PasswordBox)FindName("pbConfirmPassword")).Clear();
             ((Label)FindName("lblSN")).Visibility = System.Windows.Visibility.Visible;
             ((Label)FindName("lblSection")).Visibility = System.Windows.Visibility.Visible;
+            ClearFields();
         }
         //CRUD process
         private void btnAddUser_Click(object sender, RoutedEventArgs e)
@@ -269,6 +264,7 @@ namespace SGAutomatedElection
                 aAdmin = new Admin(Convert.ToInt32(txtNumber.Text), txtName.Text, pbPassword.Password);
                 aAdmin.Insert();
             }
+            ClearFields();
         }
 
         private void btnEditUser_Click(object sender, RoutedEventArgs e)
@@ -440,7 +436,7 @@ namespace SGAutomatedElection
         }
         private void DoNothing()
         {
-            //does amazingly NOTHING!!!
+            //amazingly does NOTHING!!!
         }
 
         private void txtDeleteNumber_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
@@ -452,26 +448,176 @@ namespace SGAutomatedElection
                 if (usertype == "Student")
                 {
                     aStudent = new Student(Convert.ToInt32(txtDeleteNumber.Text));
-                    aStudent.Delete();
+                    if (MessageBox.Show("Are you sure you want to delete this user?", "Confirm", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                    {
+                        aStudent.Delete();
+                    }
+                    else if (MessageBox.Show("Are you sure you want to delete this user?", "Confirm", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.Cancel)
+                    {
+                        DoNothing();
+                    }
                 }
                 else if (usertype == "Teacher")
                 {
                     aTeacher = new Teacher(Convert.ToInt32(txtDeleteNumber.Text));
-                    aTeacher.Delete();
+                    if (MessageBox.Show("Are you sure you want to delete this user?", "Confirm", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                    {
+                        aTeacher.Delete();
+                    }
+                    else if (MessageBox.Show("Are you sure you want to delete this user?", "Confirm", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.Cancel)
+                    {
+                        DoNothing();
+                    }
                 }
                 else if (usertype == "Admin")
                 {
                     aAdmin = new Admin(Convert.ToInt32(txtDeleteNumber.Text));
-                    aAdmin.Delete();
-                }                
+                    if (MessageBox.Show("Are you sure you want to delete this user?", "Confirm", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                    {
+                        aAdmin.Delete();
+                    }
+                    else if (MessageBox.Show("Are you sure you want to delete this user?", "Confirm", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.Cancel)
+                    {
+                        DoNothing();
+                    }
+                }
+                //PopulateSList();
             }
         }
-
         private void txtDeleteNumber_GotFocus(object sender, RoutedEventArgs e)
         {
             ((TextBox)FindName("txtDeleteNumber")).Clear();
+            ((TextBox)FindName("txtDeleteNumber")).FontStyle = FontStyles.Normal;
             ((TextBox)FindName("txtDeleteNumber")).Foreground = new SolidColorBrush(Colors.Black);
         }
+        public int ID {//for data binding only ni Students pero okay na to. move on to Name
+            get 
+            { 
+                return Convert.ToInt32(txtDeleteNumber.Text); 
+            } 
+            set
+            {  
+                txtDeleteNumber.Text = value.ToString();
+            }
+        }
+        public void PopulateSList()
+        {
+            string comStr =
+                "SELECT " +
+                    "Student.ID AS ID, " +
+                    "Student.Name AS Name, " +
+                    "Student.YearSection AS YearSection " +
+                "FROM Student";
+
+            using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(comStr, connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    students.Add(new StudentListViewItem()
+                    {
+                        ID = Convert.ToInt32(reader["ID"]),
+                        Name = reader["Name"].ToString(),
+                        YearSection = reader["YearSection"].ToString()
+                    });
+                }
+              //  lstUsers.ItemsSource = students;
+            }
+        }
+        public void ClearFields()
+        {
+            ((TextBox)FindName("txtName")).Clear();
+            ((TextBox)FindName("txtNumber")).Clear();
+            ((TextBox)FindName("txtName")).Clear();
+            ((PasswordBox)FindName("pbPassword")).Clear();
+            ((PasswordBox)FindName("pbConfirmPassword")).Clear();
+            ((ComboBox)FindName("cmbxSection")).SelectedIndex = -1;
+            ((ComboBox)FindName("cmbxDepartment")).SelectedIndex = -1;
+        }
+
+        private void btnAddCandidate_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnViewCandidates_Click(object sender, RoutedEventArgs e)
+        {
+            ((Grid)FindName("gridAdmin")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridViewer")).Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void btnListStudents_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnParties_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnCandidates_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        /*
+        public string Name //gawa tayo data bind kay Name, to do that, we get the id from Convert.ToInt32(txtDeleteNumber.Text)<- ok na to
+        {
+            get { return name; }
+            set 
+            {
+                name = Getname(Convert.ToInt32(txtDeleteNumber.Text));//to be changed by GetName(int);
+            }
+        }
+        public string YearSection //data bind lang for searching kay Student
+        {
+            get { return yearsection; }
+            set
+            {
+                yearsection = GetYearSection(Convert.ToInt32(txtDeleteNumber.Text));
+            }
+        }
+
+        private string GetYearSection(int id)
+        {
+            string yearsection = "";
+            string comstr = "SELECT * from Student WHERE ID = '" + id.ToString() + "'";
+            using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(comstr, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                   yearsection = reader["YearSection"].ToString();
+                }
+                reader.Close();
+                connection.Close();
+            }
+            return yearsection;
+        }
+
+        private string Getname(int id)
+        {
+            string name = "";
+            string comstr = "SELECT * from Student WHERE ID = '" +id.ToString() + "'";
+            using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(comstr, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    name = reader["Name"].ToString();
+                }
+                reader.Close();
+                connection.Close();
+            }            
+            return name; 
+        }*/
     }
     
 }
