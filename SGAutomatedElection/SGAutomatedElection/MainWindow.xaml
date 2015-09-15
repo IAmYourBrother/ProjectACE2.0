@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Project ACE" Height="500" Width="900" Background="Silver" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid >
-        <Grid x:Name="gridLogin" Visibility="Collapsed">
+        <Grid x:Name="gridLogin" Visibility="Visible">
             <PasswordBox x:Name="txtPass" HorizontalAlignment="Left" Margin="362,320,0,0" VerticalAlignment="Top" Width="177" Height="25"
                          Foreground="Gray" FontStyle="Italic" Password="******" GotFocus="txtPass_GotFocus" KeyboardNavigation.TabIndex="2"/>
             <TextBox x:Name="txtUsername" HorizontalAlignment="Left" Height="25" Margin="362,285,0,0" TextWrapping="Wrap" 
@@ -127,7 +127,7 @@
                     <Label Content="Name of Party" Width="100" Margin="0,0,10,0"/>
                     <TextBox TextWrapping="Wrap" VerticalAlignment="Center" Width="190" Height="25"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Width="300" Height="30" Visibility="Visible" Margin="0,0,0,5">
+                <StackPanel Orientation="Horizontal" Width="300" Height="30" Visibility="Collapsed" Margin="0,0,0,5">
                     <Label Content=" Party Members" Width="100" Margin="0,0,10,0"/>
                     <Button x:Name="btnAddPartyMembers" Content="Add" Click="btnAddPartyMembers_Click" Width="55" Height="25" Margin="0,0,12,0"/>
                     <Button x:Name="btnEditPartyMembers" Content="Edit" Click="btnAddPartyMembers_Click" Width="55" Height="25" Margin="0,0,12,0"/>
@@ -192,7 +192,7 @@
                 </ListView.View>
             </ListView>
         </Grid>
-        <Grid x:Name="gridParties">
+        <Grid x:Name="gridParties" Visibility="Collapsed">
             <Label Content="Parties List" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
             <ListView x:Name="lstParties" Width="400" Height="300">
                 <ListView.View>
@@ -202,7 +202,7 @@
                 </ListView.View>
             </ListView>
         </Grid>
-        <Grid x:Name="gridCandidates">
+        <Grid x:Name="gridCandidates" Visibility="Collapsed">
             <Label Content="Candidates List" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
             <ListView x:Name="lstCandidates" Width="450" Height="300"  Visibility="Collapsed">
                 <ListView.View>

@@ -102,7 +102,7 @@ namespace SGAutomatedElection
             {
                 MessageBox.Show("Do not leave empty fields!");
             }
-
+            
         }
         private void btnALogout_Click(object sender, RoutedEventArgs e)
         {
