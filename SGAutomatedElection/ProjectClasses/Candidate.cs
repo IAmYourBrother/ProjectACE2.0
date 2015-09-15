@@ -20,7 +20,7 @@ namespace ProjectClasses
             {
                 SqlConnection connection = new SqlConnection(Settings.ConnectionString);
                 connection.Open();
-                string commandString = "INSERT INTO Candidate VALUES ('" + ID.ToString() + "', " + "'" + Name + "', '" + Position + "', '"+Votes.ToString()+"')";
+                string commandString = "INSERT INTO Candidates VALUES ('" + ID.ToString() + "', " + "'" + Name + "', '" + Position + "', '"+Votes.ToString()+"')";
                 SqlCommand command = new SqlCommand(commandString, connection);
                 command.ExecuteNonQuery();
                 MessageBox.Show("Saved");
@@ -36,7 +36,7 @@ namespace ProjectClasses
         {
             SqlConnection connection = new SqlConnection(Settings.ConnectionString);
             connection.Open();
-            string commandString = "UPDATE Candidate SET ID='" + ID.ToString() + "', Name='" + Name + "',  Position='" + Position + "', Votes="+Votes.ToString()+"'";     
+            string commandString = "UPDATE Candidates SET ID='" + ID.ToString() + "', Name='" + Name + "',  Position='" + Position + "', Votes="+Votes.ToString()+"'";     
             SqlCommand command = new SqlCommand(commandString, connection);
             command.ExecuteNonQuery();
             connection.Close();
@@ -46,7 +46,7 @@ namespace ProjectClasses
         {
             SqlConnection connection = new SqlConnection(Settings.ConnectionString);
             connection.Open();
-            string commandString = "DELETE FROM Candidate WHERE ID='" + ID.ToString() + "'";
+            string commandString = "DELETE FROM Candidates WHERE ID='" + ID.ToString() + "'";
             SqlCommand command = new SqlCommand(commandString, connection);
             command.ExecuteNonQuery();
             connection.Close();

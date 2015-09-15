@@ -22,6 +22,8 @@ namespace SGAutomatedElection
         private Student aStudent;
         private Teacher aTeacher;
         private Admin aAdmin;
+        private Candidate aCandidate;
+        private Party aParty;
         private List<StudentListViewItem> students = new List<StudentListViewItem>();
         private List<CandidateListViewItem> candidates = new List<CandidateListViewItem>();
         public MainWindow()
@@ -545,6 +547,7 @@ namespace SGAutomatedElection
         }
         public void PopulateSList()
         {
+            students.Clear();
             string comStr =
                 "SELECT " +
                     "Student.ID AS ID, " +
@@ -573,6 +576,7 @@ namespace SGAutomatedElection
         }
         public void PopulateCList()
         {
+            candidates.Clear();
             string comStr =
                 "SELECT " +
                     "Candidates.ID AS ID, " +
@@ -597,7 +601,7 @@ namespace SGAutomatedElection
                         Position = reader["Position"].ToString()//pdeng di ko muna iretrieve ung votes
                     });
                 }
-                //  lstVoters.ItemsSource = students;
+                  lstCandidates.ItemsSource = students;
             }
         }
         public void ClearFields()
@@ -614,7 +618,7 @@ namespace SGAutomatedElection
         private void btnAddCandidate_Click(object sender, RoutedEventArgs e)
         {
             students.Clear();//if i dont put this, it shits so bad
-            //aStudent = new Student(Convert.ToInt32(txtAddCandidate.Text));
+            //aStudent = new Student(Convert.ToInt32(txtAddCandidate.Text)); no need
             string comStr =
                 "SELECT " +
                     "Student.ID AS ID, " +
@@ -656,11 +660,15 @@ namespace SGAutomatedElection
 
         private void btnParties_Click(object sender, RoutedEventArgs e)
         {
+            ((Grid)FindName("gridViewer")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridParties")).Visibility = System.Windows.Visibility.Visible;
         }
 
         private void btnCandidates_Click(object sender, RoutedEventArgs e)
         {
-            //PopulateCList();
+            ((Grid)FindName("gridViewer")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridCandidates")).Visibility = System.Windows.Visibility.Visible;
+            PopulateCList();
         }
         /*
         public string Name //gawa tayo data bind kay Name, to do that, we get the id from Convert.ToInt32(txtDeleteNumber.Text)<- ok na to
