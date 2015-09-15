@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Project ACE" Height="500" Width="900" Background="Silver" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid >
-        <Grid x:Name="gridLogin" Visibility="Visible">
+        <Grid x:Name="gridLogin" Visibility="Collapsed">
             <PasswordBox x:Name="txtPass" HorizontalAlignment="Left" Margin="362,320,0,0" VerticalAlignment="Top" Width="177" Height="25"
                          Foreground="Gray" FontStyle="Italic" Password="******" GotFocus="txtPass_GotFocus" KeyboardNavigation.TabIndex="2"/>
             <TextBox x:Name="txtUsername" HorizontalAlignment="Left" Height="25" Margin="362,285,0,0" TextWrapping="Wrap" 
@@ -181,21 +181,39 @@
             </StackPanel>            
         </Grid>
         <Grid x:Name="gridVoters" Visibility="Collapsed">
-            <ListView x:Name="lstVoters" Width="400">
+            <Label Content="Voters List" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+            <ListView x:Name="lstVoters" Width="400" Height="300">
                 <ListView.View>
                     <GridView AllowsColumnReorder="False">
                         <GridViewColumn Header="ID" Width="130" DisplayMemberBinding="{Binding ID}"/>
                         <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"/>
-                        <GridViewColumn Header="Year Section" Width="100" DisplayMemberBinding="{Binding YearSection}"/>
+                        <GridViewColumn Header="Year Section" Width="120" DisplayMemberBinding="{Binding YearSection}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
         </Grid>
         <Grid x:Name="gridParties">
-
+            <Label Content="Parties List" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+            <ListView x:Name="lstParties" Width="400" Height="300">
+                <ListView.View>
+                    <GridView AllowsColumnReorder="False">
+                        <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </Grid>
         <Grid x:Name="gridCandidates">
-
+            <Label Content="Candidates List" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+            <ListView x:Name="lstCandidates" Width="450" Height="300"  Visibility="Collapsed">
+                <ListView.View>
+                    <GridView AllowsColumnReorder="False">
+                        <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding ID}"/>
+                        <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="Party" Width="100" DisplayMemberBinding="{Binding Party}"/>
+                        <GridViewColumn Header="Position" Width="100" DisplayMemberBinding="{Binding Position}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </Grid>
         <Grid x:Name="gridElectoralResults" Visibility="Collapsed">
         </Grid>
