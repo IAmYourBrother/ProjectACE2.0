@@ -23,7 +23,13 @@
 
         </Grid>
         <Grid x:Name="gridTeacher" Visibility="Collapsed">
-    
+            <Label Content="Welcome Teacher!" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+            <StackPanel HorizontalAlignment="Left" Height="250" Margin="244,170,0,0" VerticalAlignment="Top" Width="380">
+                <Button x:Name="btnViewListVoters" Content="View Voters" Margin="0,5,0,0" Height="56" Click="btnListStudents_Click"/>
+                <Button x:Name="btnViewListCandidates" Content="View Candidates" Margin="0,5,0,0" Height="56"  Click="btnParties_Click"/>
+                <Button x:Name="btnViewListParties" Content="View Parties" Margin="0,5,0,0" Height="56"  Click="btnCandidates_Click"/>
+                <Button x:Name="btnConfirmClass" Content="Confirm Class Attendance" Margin="0,5,0,0" Height="56" />
+            </StackPanel>
         </Grid>
         <Grid x:Name="gridAdmin" Visibility="Collapsed" Height="473" VerticalAlignment="Bottom" Margin="10,0,-10,0">
             <Label Content="Administrator Control Panel" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
@@ -57,10 +63,11 @@
         </Grid>
         <Grid x:Name="gridManageMain" Visibility="Collapsed">
             <Label Content="Account Management Panel" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-            <StackPanel HorizontalAlignment="Left" Height="190" Margin="244,170,0,0" VerticalAlignment="Top" Width="380">
+            <StackPanel HorizontalAlignment="Left" Height="250" Margin="244,170,0,0" VerticalAlignment="Top" Width="380">
                 <Button x:Name="btnMStudents" Content="Manage Students" Margin="0,5,0,0" Height="56" Click="btnMStudents_Click"/>
                 <Button x:Name="btnMTeachers" Content="Manage Teachers" Margin="0,5,0,0" Height="56" Click="btnMTeachers_Click"/>
                 <Button x:Name="btnMAdmins" Content="Manage Administrators" Margin="0,5,0,0" Height="56" Click="btnMAdmins_Click"/>
+                <Button x:Name="btnMParties" Content="Manage Parties" Margin="0,5,0,0" Height="56" Click="btnMParties_Click"/>
             </StackPanel>
         </Grid>
         <!--Controls will be modified according to the button pressed in the gridManageMain-->
@@ -80,6 +87,29 @@
                     </StackPanel>
                 </Button>
                 <Button x:Name="btnDelete" Width="150" Height="150" BorderThickness="0" Margin="0,0,5,0" Background="Gray" Click="btnDelete_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Images\deletebutton.png" Width="150" Height="150"/>
+                        <TextBlock Text="text" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="gridManagementParty" Visibility="Collapsed">
+            <Label x:Name="lblMParty" Content="Manage Account" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+            <StackPanel HorizontalAlignment="Left" Height="150" Margin="215,193,0,0" VerticalAlignment="Top" Width="459" Orientation="Horizontal">
+                <Button x:Name="btnAddParty" Width="150" Height="150" BorderThickness="0" Margin="0,0,5,0" Background="Gray" Click="btnAddParty_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Images\addbutton.png" Width="150" Height="150"/>
+                        <TextBlock Text="text" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnEditParty" Width="150" Height="150" BorderThickness="0" Margin="0,0,5,0" Background="Gray" Click="btnEditParty_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Images\editbutton.png" Width="150" Height="150"/>
+                        <TextBlock Text="text" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnDeleteParty" Width="150" Height="150" BorderThickness="0" Margin="0,0,5,0" Background="Gray" Click="btnDeleteParty_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Images\deletebutton.png" Width="150" Height="150"/>
                         <TextBlock Text="text" VerticalAlignment="Center" />
@@ -122,16 +152,16 @@
         <!--All grids below concern the Electoral Process and Registration-->
         <Grid x:Name="gridRegisterParty" Visibility="Collapsed">
             <Label Content="Register New Party" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-            <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Vertical" Margin="0,-21,0,0">
                 <StackPanel Orientation="Horizontal" Width="300" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,150,0,5">
                     <Label Content="Name of Party" Width="100" Margin="0,0,10,0"/>
                     <TextBox TextWrapping="Wrap" VerticalAlignment="Center" Width="190" Height="25"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Width="300" Height="30" Visibility="Collapsed" Margin="0,0,0,5">
+                <StackPanel Orientation="Horizontal" Width="300" Height="30" Margin="0,0,0,5">
                     <Label Content=" Party Members" Width="100" Margin="0,0,10,0"/>
                     <Button x:Name="btnAddPartyMembers" Content="Add" Click="btnAddPartyMembers_Click" Width="55" Height="25" Margin="0,0,12,0"/>
-                    <Button x:Name="btnEditPartyMembers" Content="Edit" Click="btnAddPartyMembers_Click" Width="55" Height="25" Margin="0,0,12,0"/>
-                    <Button x:Name="btnDeletePartyMembers" Content="Delete" Click="btnAddPartyMembers_Click" Width="55" Height="25" Margin="0,0,12,0"/>
+                    <Button x:Name="btnEditPartyMembers" Content="Edit" Click="btnEditPartyMembers_Click" Width="55" Height="25" Margin="0,0,12,0"/>
+                    <Button x:Name="btnDeletePartyMembers" Content="Delete" Click="btnDeletePartyMembers_Click" Width="55" Height="25" Margin="0,0,12,0"/>
                 </StackPanel>
                 <GroupBox Header="Assign Member Positions" Height="210" Width="310">
                     <StackPanel Orientation="Horizontal">
@@ -154,6 +184,10 @@
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>
+                <StackPanel Orientation="Horizontal" Height="30" Width="150" Margin="0,10,0,0">
+                    <Button x:Name="btnConfirmParty" Content="Confirm" Height="25" Width="50" Margin="0,0,50,0" Click="btnConfirmParty_Click"/>
+                    <Button x:Name="btnCancelParty" Content="Cancel" Height="25" Width="50" Click="btnCancelParty_Click"/>
+                </StackPanel>
             </StackPanel>
         </Grid>
         <Grid x:Name="gridAddPartyMembers" Visibility="Collapsed">
@@ -172,8 +206,9 @@
                     <Label Content="Enter Student Number: " Height="25"/>
                     <TextBox x:Name="txtAddCandidate" Width="160" Height="25" Margin="0,38"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Height="25" Width="150" Margin="129,0,41,0">
+                <StackPanel Orientation="Horizontal" Height="25" Width="150" Margin="125,0">
                     <Button x:Name="btnAddCandidate" Content="Add" Width="50" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnAddCandidate_Click"/>
+                    <Button x:Name="btnCancelCandidate" Content="Cancel" Width="50" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnCancelCandidate_Click" Margin="50,0,0,0"/>
                 </StackPanel>
             </StackPanel>
 
@@ -200,7 +235,7 @@
         </Grid>
         <Grid x:Name="gridParties" Visibility="Collapsed">
             <Label Content="Parties List" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-            <ListView x:Name="lstParties" Width="400" Height="300">
+            <ListView x:Name="lstParties" Width="400" Height="300" Margin="0,80,0,0">
                 <ListView.View>
                     <GridView AllowsColumnReorder="False">
                         <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"/>
@@ -210,7 +245,7 @@
         </Grid>
         <Grid x:Name="gridCandidates" Visibility="Collapsed">
             <Label Content="Candidates List" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-            <ListView x:Name="lstCandidates" Width="450" Height="300"  Visibility="Collapsed">
+            <ListView x:Name="lstCandidates" Width="450" Height="300" Margin="0,80,0,0">
                 <ListView.View>
                     <GridView AllowsColumnReorder="False">
                         <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding ID}"/>

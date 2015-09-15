@@ -137,14 +137,11 @@ namespace SGAutomatedElection
             flag = 3;
         }
 
-        private void btnAddPositions_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void btnAddPartyMembers_Click(object sender, RoutedEventArgs e)
         {
-
+            ((Grid)FindName("gridRegisterParty")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridAddPartyMembers")).Visibility = System.Windows.Visibility.Visible;
         }
         private void txtPass_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -162,7 +159,7 @@ namespace SGAutomatedElection
             flag2 = 4;
             usertype = DetermineUser();
             ChangeAddLabel();
-            ((Grid)FindName("gridManagementUser")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridManagementUser")).Visibility = System.Windows.Visibility.Collapsed; //gridAddPartyMembers
             ((Grid)FindName("gridAddUser")).Visibility = System.Windows.Visibility.Visible;
             ((Button)FindName("btnAddUser")).Visibility = System.Windows.Visibility.Visible;
             ((Button)FindName("btnEditUser")).Visibility = System.Windows.Visibility.Collapsed;
@@ -670,61 +667,56 @@ namespace SGAutomatedElection
             ((Grid)FindName("gridCandidates")).Visibility = System.Windows.Visibility.Visible;
             PopulateCList();
         }
-        /*
-        public string Name //gawa tayo data bind kay Name, to do that, we get the id from Convert.ToInt32(txtDeleteNumber.Text)<- ok na to
+
+        private void btnCancelCandidate_Click(object sender, RoutedEventArgs e)
         {
-            get { return name; }
-            set 
-            {
-                name = Getname(Convert.ToInt32(txtDeleteNumber.Text));//to be changed by GetName(int);
-            }
-        }
-        public string YearSection //data bind lang for searching kay Student
-        {
-            get { return yearsection; }
-            set
-            {
-                yearsection = GetYearSection(Convert.ToInt32(txtDeleteNumber.Text));
-            }
+            ((Grid)FindName("gridAddPartyMembers")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridCandidates")).Visibility = System.Windows.Visibility.Visible;
         }
 
-        private string GetYearSection(int id)
+        private void btnMParties_Click(object sender, RoutedEventArgs e)
         {
-            string yearsection = "";
-            string comstr = "SELECT * from Student WHERE ID = '" + id.ToString() + "'";
-            using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand(comstr, connection);
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                   yearsection = reader["YearSection"].ToString();
-                }
-                reader.Close();
-                connection.Close();
-            }
-            return yearsection;
+            ((Grid)FindName("gridManageMain")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridManagementParty")).Visibility = System.Windows.Visibility.Visible;
+            //no need to change label
         }
 
-        private string Getname(int id)
+        private void btnAddParty_Click(object sender, RoutedEventArgs e)
         {
-            string name = "";
-            string comstr = "SELECT * from Student WHERE ID = '" +id.ToString() + "'";
-            using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand(comstr, connection);
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    name = reader["Name"].ToString();
-                }
-                reader.Close();
-                connection.Close();
-            }            
-            return name; 
-        }*/
+            ((Grid)FindName("gridManagementParty")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridRegisterParty")).Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void btnEditParty_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnDeleteParty_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnConfirmParty_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnCancelParty_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnDeletePartyMembers_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnEditPartyMembers_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
     
 }
+//gridAddPartyMembers
