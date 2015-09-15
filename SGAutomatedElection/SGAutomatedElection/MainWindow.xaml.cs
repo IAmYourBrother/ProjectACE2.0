@@ -613,7 +613,32 @@ namespace SGAutomatedElection
 
         private void btnAddCandidate_Click(object sender, RoutedEventArgs e)
         {
+            students.Clear();//if i dont put this, it shits so bad
+            //aStudent = new Student(Convert.ToInt32(txtAddCandidate.Text));
+            string comStr =
+                "SELECT " +
+                    "Student.ID AS ID, " +
+                    "Student.Name AS Name, " +
+                    "Student.YearSection AS YearSection " +
+                "FROM Student WHERE ID = '"+txtAddCandidate.Text+"'";//try lang
+            using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(comStr, connection);
+                SqlDataReader reader = command.ExecuteReader();
 
+                while (reader.Read())
+                {
+                    students.Add(new StudentListViewItem()
+                    {
+                        ID = Convert.ToInt32(reader["ID"]),
+                        Name = reader["Name"].ToString(),
+                        YearSection = reader["YearSection"].ToString()
+                    });
+                }
+                reader.Close();
+                lstAddPartyMembers.ItemsSource = students;
+            }
         }
 
         private void btnViewCandidates_Click(object sender, RoutedEventArgs e)
@@ -631,7 +656,6 @@ namespace SGAutomatedElection
 
         private void btnParties_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void btnCandidates_Click(object sender, RoutedEventArgs e)

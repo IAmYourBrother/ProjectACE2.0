@@ -69,6 +69,11 @@ namespace ProjectClasses
             connection.Close();
             connection.Dispose();
         }
+        //addtionals
+        public void FindYou(int id)
+        {
+ 
+        }
 
         //Props
         public int ID { get; set; }//Eto na rin yung Username so, no need to use UN property

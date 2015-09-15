@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Project ACE" Height="500" Width="900" Background="Silver" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid >
-        <Grid x:Name="gridLogin" Visibility="Visible">
+        <Grid x:Name="gridLogin" Visibility="Collapsed">
             <PasswordBox x:Name="txtPass" HorizontalAlignment="Left" Margin="362,320,0,0" VerticalAlignment="Top" Width="177" Height="25"
                          Foreground="Gray" FontStyle="Italic" Password="******" GotFocus="txtPass_GotFocus" KeyboardNavigation.TabIndex="2"/>
             <TextBox x:Name="txtUsername" HorizontalAlignment="Left" Height="25" Margin="362,285,0,0" TextWrapping="Wrap" 
@@ -23,7 +23,7 @@
 
         </Grid>
         <Grid x:Name="gridTeacher" Visibility="Collapsed">
-
+    
         </Grid>
         <Grid x:Name="gridAdmin" Visibility="Collapsed" Height="473" VerticalAlignment="Bottom" Margin="10,0,-10,0">
             <Label Content="Administrator Control Panel" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
@@ -156,12 +156,18 @@
                 </GroupBox>
             </StackPanel>
         </Grid>
-        <Grid x:Name="gridAddPartyMembers" Visibility="Collapsed">
+        <Grid x:Name="gridAddPartyMembers" Visibility="Visible">
             <Label Content="Add Party Members" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-            <StackPanel Orientation="Vertical" Width="320" Margin="286,124,286,36">
-                <ListBox x:Name="lstAddCandidates" Height="177">
-                    
-                </ListBox>
+            <StackPanel Orientation="Vertical" Width="400" Height="350" Margin="0,120,0,0">
+                <ListView x:Name="lstAddPartyMembers" Width="400" Height="200">
+                <ListView.View>
+                    <GridView AllowsColumnReorder="False">
+                        <GridViewColumn Header="ID" Width="130" DisplayMemberBinding="{Binding ID}"/>
+                        <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="Year Section" Width="120" DisplayMemberBinding="{Binding YearSection}"/>
+                    </GridView>
+                </ListView.View>
+                </ListView>
                 <StackPanel Orientation="Horizontal" Height="100" Width="300">
                     <Label Content="Enter Student Number: " Height="25"/>
                     <TextBox x:Name="txtAddCandidate" Width="160" Height="25" Margin="0,38"/>
