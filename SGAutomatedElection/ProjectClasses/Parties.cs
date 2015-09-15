@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace ProjectClasses
 {
-    public class Party :IQuery
+    public class Parties :IQuery
     {
-        public Party()
+        public Parties()
         { 
         }
         //IQuery Methods

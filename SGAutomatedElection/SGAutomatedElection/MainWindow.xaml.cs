@@ -23,7 +23,7 @@ namespace SGAutomatedElection
         private Teacher aTeacher;
         private Admin aAdmin;
         private Candidate aCandidate;
-        private Party aParty;
+        private Parties aParty;
         private List<StudentListViewItem> students = new List<StudentListViewItem>();
         private List<CandidateListViewItem> candidates = new List<CandidateListViewItem>();
         public MainWindow()
@@ -331,7 +331,6 @@ namespace SGAutomatedElection
                         }
                         catch (Exception ex)
                         {
-
                             MessageBox.Show(ex.ToString());
                         }                       
                     }
@@ -615,13 +614,12 @@ namespace SGAutomatedElection
         private void btnAddCandidate_Click(object sender, RoutedEventArgs e)
         {
             students.Clear();//if i dont put this, it shits so bad
-            //aStudent = new Student(Convert.ToInt32(txtAddCandidate.Text)); no need
             string comStr =
                 "SELECT " +
                     "Student.ID AS ID, " +
                     "Student.Name AS Name, " +
                     "Student.YearSection AS YearSection " +
-                "FROM Student WHERE ID = '"+txtAddCandidate.Text+"'";//try lang
+                "FROM Student WHERE ID = '"+txtAddCandidate.Text+"'";
             using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
             {
                 connection.Open();
@@ -636,10 +634,19 @@ namespace SGAutomatedElection
                         Name = reader["Name"].ToString(),
                         YearSection = reader["YearSection"].ToString()
                     });
+                    cmbxPresident.Items.Add(reader["Name"].ToString());
+                    cmbxVPresident.Items.Add(reader["Name"].ToString());
+                    cmbxSecretary.Items.Add(reader["Name"].ToString());
+                    cmbxTreasurer.Items.Add(reader["Name"].ToString());
+                    cmbxPR.Items.Add(reader["Name"].ToString());
+                    cmbxPO.Items.Add(reader["Name"].ToString());
                 }
+               // aCandidate = new Candidate(ID,);
+             //   aCandidate.Insert();
                 reader.Close();
                 lstAddPartyMembers.ItemsSource = students;
             }
+            
         }
 
         private void btnViewCandidates_Click(object sender, RoutedEventArgs e)
@@ -671,7 +678,7 @@ namespace SGAutomatedElection
         private void btnCancelCandidate_Click(object sender, RoutedEventArgs e)
         {
             ((Grid)FindName("gridAddPartyMembers")).Visibility = System.Windows.Visibility.Collapsed;
-            ((Grid)FindName("gridCandidates")).Visibility = System.Windows.Visibility.Visible;
+            ((Grid)FindName("gridRegisterParty")).Visibility = System.Windows.Visibility.Visible;
         }
 
         private void btnMParties_Click(object sender, RoutedEventArgs e)
@@ -699,7 +706,35 @@ namespace SGAutomatedElection
 
         private void btnConfirmParty_Click(object sender, RoutedEventArgs e)
         {
+            if (((cmbxPresident.Text == cmbxVPresident.Text) || (cmbxPresident.Text == cmbxSecretary.Text) ||
+                (cmbxPresident.Text == cmbxTreasurer.Text) || (cmbxPresident.Text == cmbxPR.Text) || (cmbxPresident.Text == cmbxPO.Text))
+                || ((cmbxVPresident.Text == cmbxPresident.Text) || (cmbxVPresident.Text == cmbxSecretary.Text) ||
+                    (cmbxVPresident.Text == cmbxTreasurer.Text) || (cmbxVPresident.Text == cmbxPR.Text) || (cmbxVPresident.Text == cmbxPO.Text))
+                    || ((cmbxSecretary.Text == cmbxPresident.Text) || (cmbxSecretary.Text == cmbxVPresident.Text) || (cmbxSecretary.Text == cmbxTreasurer.Text)
+                    || (cmbxSecretary.Text == cmbxPR.Text) || (cmbxSecretary.Text == cmbxPO.Text))
+                    || ((cmbxTreasurer.Text == cmbxVPresident.Text) || (cmbxTreasurer.Text == cmbxSecretary.Text) || (cmbxTreasurer.Text == cmbxPresident.Text)
+                    || (cmbxTreasurer.Text == cmbxPR.Text) || (cmbxTreasurer.Text == cmbxPO.Text))
+                    || ((cmbxPR.Text == cmbxVPresident.Text) || (cmbxPR.Text == cmbxSecretary.Text) || (cmbxPR.Text == cmbxTreasurer.Text)
+                    || (cmbxPR.Text == cmbxPresident.Text) || (cmbxPR.Text == cmbxPO.Text)) || ((cmbxPO.Text == cmbxVPresident.Text)
+                    || (cmbxPO.Text == cmbxSecretary.Text) || (cmbxPO.Text == cmbxTreasurer.Text) || (cmbxPO.Text == cmbxPR.Text) || (cmbxPO.Text == cmbxPresident.Text)))
+            {
+                MessageBox.Show("Repeated Candidate Name!", "Warning!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            else
+            {
+                RegisterParty();
+                MessageBox.Show("Party Registered!", "Success!", MessageBoxButton.OK, MessageBoxImage.None);
+            }
+        }
 
+        public void RegisterParty()
+        {
+            //pasok partyname
+            aParty = new Parties();
+            aParty.Name = txtPartyName.Text;
+            aParty.Insert();
+            //pasok members to candidates
+            aCandidate = new Candidate();
         }
 
         private void btnCancelParty_Click(object sender, RoutedEventArgs e)
@@ -715,6 +750,29 @@ namespace SGAutomatedElection
         private void btnEditPartyMembers_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+        public int GetIDfromName(string name)
+        {
+            int number = 0;
+            string comStr =
+                "SELECT " +
+                    "Student.ID AS ID, " +
+                    "Student.Name AS Name, " +
+                "FROM Student WHERE Name = '" + name + "'";
+            using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(comStr, connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    number = Convert.ToInt32(reader["ID"]);
+                }
+                reader.Close();
+            }
+           
+            return number;
         }
     }
     

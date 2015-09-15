@@ -9,9 +9,12 @@ namespace ProjectClasses
 {
     public class Candidate:IQuery
     {
-        public Candidate(int id)
+        public Candidate(int id, string name, string position, string party)
         {
             ID = id;
+            Name = name;
+            Position = position;
+            Party = party;
         }
         //IQuery methods
         public void Insert()
@@ -20,7 +23,7 @@ namespace ProjectClasses
             {
                 SqlConnection connection = new SqlConnection(Settings.ConnectionString);
                 connection.Open();
-                string commandString = "INSERT INTO Candidates VALUES ('" + ID.ToString() + "', " + "'" + Name + "', '" + Position + "', '"+Votes.ToString()+"')";
+                string commandString = "INSERT INTO Candidates VALUES ('" + ID.ToString() + "', " + "'" + Name + "', Party ='"+Party+"',  Position='" + Position + "')";
                 SqlCommand command = new SqlCommand(commandString, connection);
                 command.ExecuteNonQuery();
                 MessageBox.Show("Saved");
@@ -36,7 +39,7 @@ namespace ProjectClasses
         {
             SqlConnection connection = new SqlConnection(Settings.ConnectionString);
             connection.Open();
-            string commandString = "UPDATE Candidates SET ID='" + ID.ToString() + "', Name='" + Name + "',  Position='" + Position + "', Votes="+Votes.ToString()+"'";     
+            string commandString = "UPDATE Candidates SET ID='" + ID.ToString() + "', Name='" + Name + "', Party ='"+Party+"',  Position='" + Position + "'";     
             SqlCommand command = new SqlCommand(commandString, connection);
             command.ExecuteNonQuery();
             connection.Close();
@@ -56,5 +59,6 @@ namespace ProjectClasses
         public string Name { get; set; }
         public string Position { get; set; }
         public int Votes { get; set; }
+        public string Party{get;set;}
     }
 }

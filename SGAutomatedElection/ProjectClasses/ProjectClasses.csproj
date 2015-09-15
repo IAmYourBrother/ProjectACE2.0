@@ -47,13 +47,14 @@
     <Compile Include="CandidateListViewItem.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="IQuery.cs" />
-    <Compile Include="Party.cs" />
+    <Compile Include="Parties.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Student.cs" />
     <Compile Include="StudentListViewItem.cs" />
     <Compile Include="Teacher.cs" />
+    <Compile Include="Votes.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

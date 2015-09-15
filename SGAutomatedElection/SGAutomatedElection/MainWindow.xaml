@@ -155,7 +155,7 @@
             <StackPanel Orientation="Vertical" Margin="0,-21,0,0">
                 <StackPanel Orientation="Horizontal" Width="300" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,150,0,5">
                     <Label Content="Name of Party" Width="100" Margin="0,0,10,0"/>
-                    <TextBox TextWrapping="Wrap" VerticalAlignment="Center" Width="190" Height="25"/>
+                    <TextBox x:Name="txtPartyName" TextWrapping="Wrap" VerticalAlignment="Center" Width="190" Height="25"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Width="300" Height="30" Margin="0,0,0,5">
                     <Label Content=" Party Members" Width="100" Margin="0,0,10,0"/>
@@ -194,13 +194,13 @@
             <Label Content="Add Party Members" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
             <StackPanel Orientation="Vertical" Width="400" Height="350" Margin="0,120,0,0">
                 <ListView x:Name="lstAddPartyMembers" Width="400" Height="200">
-                <ListView.View>
-                    <GridView AllowsColumnReorder="False">
-                        <GridViewColumn Header="ID" Width="130" DisplayMemberBinding="{Binding ID}"/>
-                        <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"/>
-                        <GridViewColumn Header="Year Section" Width="120" DisplayMemberBinding="{Binding YearSection}"/>
-                    </GridView>
-                </ListView.View>
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False">
+                            <GridViewColumn Header="ID" Width="130" DisplayMemberBinding="{Binding ID}"/>
+                            <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="Year Section" Width="120" DisplayMemberBinding="{Binding YearSection}"/>
+                        </GridView>
+                    </ListView.View><!-- ipapasok ko muna sa List -->
                 </ListView>
                 <StackPanel Orientation="Horizontal" Height="100" Width="300">
                     <Label Content="Enter Student Number: " Height="25"/>
