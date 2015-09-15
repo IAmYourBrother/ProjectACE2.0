@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using ProjectClasses;
 using System.Data.SqlClient;
+using System.Collections.ObjectModel;
 
 namespace SGAutomatedElection
 {
@@ -24,11 +25,10 @@ namespace SGAutomatedElection
         private Admin aAdmin;
         private Candidate aCandidate;
         private Parties aParty;
-        private List<StudentListViewItem> students = new List<StudentListViewItem>();
+        private ObservableCollection<StudentListViewItem> students = new ObservableCollection<StudentListViewItem>();
         private List<CandidateListViewItem> candidates = new List<CandidateListViewItem>();
         public MainWindow()
         {
-
             InitializeComponent();
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -613,6 +613,7 @@ namespace SGAutomatedElection
 
         private void btnAddCandidate_Click(object sender, RoutedEventArgs e)
         {
+            
             students.Clear();//if i dont put this, it shits so bad
             string comStr =
                 "SELECT " +
@@ -644,9 +645,11 @@ namespace SGAutomatedElection
                // aCandidate = new Candidate(ID,);
              //   aCandidate.Insert();
                 reader.Close();
-                lstAddPartyMembers.ItemsSource = students;
-            }
-            
+                foreach (StudentListViewItem s in students)
+                {
+                    lstAddPartyMembers.Items.Add(s);
+                }
+            }            
         }
 
         private void btnViewCandidates_Click(object sender, RoutedEventArgs e)
@@ -734,7 +737,19 @@ namespace SGAutomatedElection
             aParty.Name = txtPartyName.Text;
             aParty.Insert();
             //pasok members to candidates
-            aCandidate = new Candidate();
+            aCandidate = new Candidate(GetIDfromName(cmbxPresident.Text), cmbxPresident.Text, "President", aParty.Name);
+            aCandidate.Insert();
+            aCandidate = new Candidate(GetIDfromName(cmbxVPresident.Text), cmbxVPresident.Text, "Vice President", aParty.Name);
+            aCandidate.Insert();
+            aCandidate = new Candidate(GetIDfromName(cmbxSecretary.Text), cmbxSecretary.Text, "Secretary", aParty.Name);
+            aCandidate.Insert();
+            aCandidate = new Candidate(GetIDfromName(cmbxTreasurer.Text), cmbxTreasurer.Text, "Treasurer", aParty.Name);
+            aCandidate.Insert();
+            aCandidate = new Candidate(GetIDfromName(cmbxPR.Text), cmbxPR.Text, "Public Relations", aParty.Name);
+            aCandidate.Insert();
+            aCandidate = new Candidate(GetIDfromName(cmbxPO.Text), cmbxPO.Text, "Peace Officer", aParty.Name);
+            aCandidate.Insert();
+            MessageBox.Show("All Candidates Saved");
         }
 
         private void btnCancelParty_Click(object sender, RoutedEventArgs e)
@@ -755,10 +770,7 @@ namespace SGAutomatedElection
         {
             int number = 0;
             string comStr =
-                "SELECT " +
-                    "Student.ID AS ID, " +
-                    "Student.Name AS Name, " +
-                "FROM Student WHERE Name = '" + name + "'";
+                "SELECT Student.ID AS ID, Student.Name AS Name FROM Student WHERE Name = '"+name+"'";
             using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
             {
                 connection.Open();
@@ -770,8 +782,7 @@ namespace SGAutomatedElection
                     number = Convert.ToInt32(reader["ID"]);
                 }
                 reader.Close();
-            }
-           
+            }           
             return number;
         }
     }

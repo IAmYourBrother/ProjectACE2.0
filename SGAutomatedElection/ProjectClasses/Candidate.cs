@@ -23,10 +23,9 @@ namespace ProjectClasses
             {
                 SqlConnection connection = new SqlConnection(Settings.ConnectionString);
                 connection.Open();
-                string commandString = "INSERT INTO Candidates VALUES ('" + ID.ToString() + "', " + "'" + Name + "', Party ='"+Party+"',  Position='" + Position + "')";
+                string commandString = "INSERT INTO Candidates VALUES ('" + ID.ToString() + "', '" + Name + "', '"+Party+"', '" + Position + "')";
                 SqlCommand command = new SqlCommand(commandString, connection);
                 command.ExecuteNonQuery();
-                MessageBox.Show("Saved");
                 connection.Close();
                 connection.Dispose();
             }

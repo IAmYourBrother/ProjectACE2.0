@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Project ACE" Height="500" Width="900" Background="Silver" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid >
-        <Grid x:Name="gridLogin" Visibility="Visible">
+        <Grid x:Name="gridLogin" Visibility="Collapsed">
             <PasswordBox x:Name="txtPass" HorizontalAlignment="Left" Margin="362,320,0,0" VerticalAlignment="Top" Width="177" Height="25"
                          Foreground="Gray" FontStyle="Italic" Password="******" GotFocus="txtPass_GotFocus" KeyboardNavigation.TabIndex="2"/>
             <TextBox x:Name="txtUsername" HorizontalAlignment="Left" Height="25" Margin="362,285,0,0" TextWrapping="Wrap" 
@@ -190,7 +190,7 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
-        <Grid x:Name="gridAddPartyMembers" Visibility="Collapsed">
+        <Grid x:Name="gridAddPartyMembers" Visibility="Visible">
             <Label Content="Add Party Members" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
             <StackPanel Orientation="Vertical" Width="400" Height="350" Margin="0,120,0,0">
                 <ListView x:Name="lstAddPartyMembers" Width="400" Height="200">
