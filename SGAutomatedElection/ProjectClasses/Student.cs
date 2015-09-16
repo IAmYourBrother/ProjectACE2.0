@@ -9,7 +9,7 @@ namespace ProjectClasses
 {
     public class Student : IQuery
     {
-        public Student(int id, string name, string section, string password, bool hasvoted)
+        public Student(int id, string name, string section, string password, int hasvoted)
         {
             ID = id;
             Name = name;
@@ -28,7 +28,7 @@ namespace ProjectClasses
             {
                 SqlConnection connection = new SqlConnection(Settings.ConnectionString);
                 connection.Open();
-                string commandString = "INSERT INTO Student VALUES ('" + ID.ToString() + "', " + "'" + Name + "', '" + Section + "')";
+                string commandString = "INSERT INTO Student VALUES ('" + ID.ToString() + "', " + "'" + Name + "', '" + Section + "', "+HasVoted+")";
                 string commandString2 = "INSERT INTO Accounts VALUES ('"+ID.ToString()+"', '"+Password+"', 'Student')";
                 SqlCommand command = new SqlCommand(commandString, connection);
                 SqlCommand command2 = new SqlCommand(commandString2, connection);
@@ -56,6 +56,15 @@ namespace ProjectClasses
             connection.Close();
             connection.Dispose();
         }
+        public void VUpdate()
+        {
+            SqlConnection connection = new SqlConnection(Settings.ConnectionString);
+            connection.Open();
+            string commandString = "UPDATE Student SET HasVoted '"+HasVoted+"'";         
+            SqlCommand command = new SqlCommand(commandString, connection);
+            connection.Close();
+            connection.Dispose();
+        }
         public void Delete()
         {
             SqlConnection connection = new SqlConnection(Settings.ConnectionString);
@@ -79,7 +88,7 @@ namespace ProjectClasses
         public int ID { get; set; }//Eto na rin yung Username so, no need to use UN property
         public string Name { get; set; }
         public string Password { get; set; }
-        public bool HasVoted { get; set; }
+        public int HasVoted { get; set; }
         public string Section { get; set; }
     }
 }

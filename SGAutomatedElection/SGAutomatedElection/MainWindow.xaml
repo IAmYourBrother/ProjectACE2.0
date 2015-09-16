@@ -149,6 +149,27 @@
             		Foreground="Gray" FontStyle="Italic" Text="Enter User Number" GotFocus="txtDeleteNumber_GotFocus" Margin="0,200,0,0" />
             </StackPanel>
         </Grid>
+        <Grid x:Name="gridConfirmClass" Visibility="Visible">
+            <!--UI for class Attendance confimation-->
+            <Label Content="Cofirm Class Attendance" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Select a Class to Confirm"/>
+                    <ComboBox x:Name="cmbxClass" Height="25" Width="100"/>
+                </StackPanel>                
+                <ListView x:Name="lstClassList" Width="400" Height="200">
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False">
+                            <GridViewColumn Header="ID" Width="130" DisplayMemberBinding="{Binding ID}"/>
+                            <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="Year Section" Width="120" DisplayMemberBinding="{Binding YearSection}"/>
+                            <GridViewColumn Header="Voted" Width="120" DisplayMemberBinding="{Binding HasVoted}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button x:Name="btnConfirm" Content="Confirm" Height="25" Width="50"/>
+            </StackPanel>            
+        </Grid>
         <!--All grids below concern the Electoral Process and Registration-->
         <Grid x:Name="gridRegisterParty" Visibility="Collapsed">
             <Label Content="Register New Party" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
@@ -190,7 +211,7 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
-        <Grid x:Name="gridAddPartyMembers" Visibility="Visible">
+        <Grid x:Name="gridAddPartyMembers" Visibility="Collapsed">
             <Label Content="Add Party Members" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
             <StackPanel Orientation="Vertical" Width="400" Height="350" Margin="0,120,0,0">
                 <ListView x:Name="lstAddPartyMembers" Width="400" Height="200">
@@ -200,7 +221,7 @@
                             <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"/>
                             <GridViewColumn Header="Year Section" Width="120" DisplayMemberBinding="{Binding YearSection}"/>
                         </GridView>
-                    </ListView.View><!-- ipapasok ko muna sa List -->
+                    </ListView.View>
                 </ListView>
                 <StackPanel Orientation="Horizontal" Height="100" Width="300">
                     <Label Content="Enter Student Number: " Height="25"/>

@@ -74,6 +74,29 @@ namespace SGAutomatedElection
             cmbxSection.Items.Add(new { Name = "4D", Value = "4D" });
             cmbxSection.Items.Add(new { Name = "4E", Value = "4E" });
         }
+        private void PopulateClass()
+        {
+            cmbxClass.Items.Add(new { Name = "1A", Value = "1A" });
+            cmbxClass.Items.Add(new { Name = "1B", Value = "1B" });
+            cmbxClass.Items.Add(new { Name = "1C", Value = "1C" });
+            cmbxClass.Items.Add(new { Name = "1D", Value = "1D" });
+            cmbxClass.Items.Add(new { Name = "1E", Value = "1E" });
+            cmbxClass.Items.Add(new { Name = "2A", Value = "2A" });
+            cmbxClass.Items.Add(new { Name = "2B", Value = "2B" });
+            cmbxClass.Items.Add(new { Name = "2C", Value = "2C" });
+            cmbxClass.Items.Add(new { Name = "2D", Value = "2D" });
+            cmbxClass.Items.Add(new { Name = "2E", Value = "2E" });
+            cmbxClass.Items.Add(new { Name = "3A", Value = "3A" });
+            cmbxClass.Items.Add(new { Name = "3B", Value = "3B" });
+            cmbxClass.Items.Add(new { Name = "3C", Value = "3C" });
+            cmbxClass.Items.Add(new { Name = "3D", Value = "3D" });
+            cmbxClass.Items.Add(new { Name = "3E", Value = "3E" });
+            cmbxClass.Items.Add(new { Name = "4A", Value = "4A" });
+            cmbxClass.Items.Add(new { Name = "4B", Value = "4B" });
+            cmbxClass.Items.Add(new { Name = "4C", Value = "4C" });
+            cmbxClass.Items.Add(new { Name = "4D", Value = "4D" });
+            cmbxClass.Items.Add(new { Name = "4E", Value = "4E" });
+        }
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             
@@ -277,7 +300,7 @@ namespace SGAutomatedElection
         {
             if (flag == 1)
             {
-                aStudent = new Student(Convert.ToInt32(txtNumber.Text), txtName.Text, cmbxSection.Text, pbPassword.Password, false);
+                aStudent = new Student(Convert.ToInt32(txtNumber.Text), txtName.Text, cmbxSection.Text, pbPassword.Password, 0);
                 aStudent.Insert();
             }
             else if (flag == 2)
@@ -297,7 +320,7 @@ namespace SGAutomatedElection
         {
             if (flag == 1)
             {
-                aStudent = new Student(Convert.ToInt32(txtNumber.Text), txtName.Text,  cmbxSection.Text, pbPassword.Password, false);
+                aStudent = new Student(Convert.ToInt32(txtNumber.Text), txtName.Text,  cmbxSection.Text, pbPassword.Password, 0);
                 aStudent.Update();
             }
             else if (flag == 2)
