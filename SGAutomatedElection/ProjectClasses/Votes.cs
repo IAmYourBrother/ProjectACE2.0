@@ -14,7 +14,7 @@ namespace ProjectClasses
         }
         public void Insert()
         { 
-
+            //nothing should happen here since we'll just update the votes in the candidate table. :))
         }
         public void Update()
         { }

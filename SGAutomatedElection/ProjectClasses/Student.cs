@@ -47,12 +47,13 @@ namespace ProjectClasses
         {
             SqlConnection connection = new SqlConnection(Settings.ConnectionString);
             connection.Open();
-            string commandString = "UPDATE Student SET ID='" +ID.ToString()+ "', Name='" +Name+ "',  YearSection='" + Section+  "'";
-            string commandString2 = "UPDATE Accounts SET ID='" + ID.ToString() + "', PW='" + Password + "', Utype = 'Student'";
+            string commandString = "UPDATE Student SET  Name='" +Name+ "',  YearSection='" + Section+  "' WHERE ID = '"+ID+"'";
+            string commandString2 = "UPDATE Accounts SET  PW='" + Password + "', Utype = 'Student' WHERE ID = '" + ID + "'"; 
             SqlCommand command = new SqlCommand(commandString, connection);
             SqlCommand command2 = new SqlCommand(commandString2, connection);
             command.ExecuteNonQuery();
             command2.ExecuteNonQuery();
+            MessageBox.Show("Updated");
             connection.Close();
             connection.Dispose();
         }
@@ -60,7 +61,7 @@ namespace ProjectClasses
         {
             SqlConnection connection = new SqlConnection(Settings.ConnectionString);
             connection.Open();
-            string commandString = "UPDATE Student SET HasVoted '"+HasVoted+"'";         
+            string commandString = "UPDATE Student SET HasVoted '"+HasVoted+"' WHERE ID = '" + ID + "'";         
             SqlCommand command = new SqlCommand(commandString, connection);
             connection.Close();
             connection.Dispose();
@@ -78,12 +79,6 @@ namespace ProjectClasses
             connection.Close();
             connection.Dispose();
         }
-        //addtionals
-        public void FindYou(int id)
-        {
- 
-        }
-
         //Props
         public int ID { get; set; }//Eto na rin yung Username so, no need to use UN property
         public string Name { get; set; }

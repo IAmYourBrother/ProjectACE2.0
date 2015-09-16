@@ -48,8 +48,8 @@ namespace ProjectClasses
         {
             SqlConnection connection = new SqlConnection(Settings.ConnectionString);
             connection.Open();
-            string commandString = "UPDATE Teacher SET ID='" + ID.ToString() + "', Name='" + Name + "',  Department='" + Department + "'";
-            string commandString2 = "UPDATE Accounts SET ID='" + ID.ToString() + "', PW='" + Password + "', Utype = 'Teacher'";
+            string commandString = "UPDATE Teacher SET Name='" + Name + "',  Department='" + Department + " WHERE ID = '" + ID + "'";
+            string commandString2 = "UPDATE Accounts SET PW='" + Password + "', Utype = 'Teacher' WHERE ID = '" + ID + "'";
             SqlCommand command = new SqlCommand(commandString, connection);
             SqlCommand command2 = new SqlCommand(commandString2, connection);
             command.ExecuteNonQuery();

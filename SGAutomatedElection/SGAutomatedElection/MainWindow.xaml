@@ -16,21 +16,28 @@
                 <Label Content="     Automated Campus Election"  FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black" Width="406"/>
             </StackPanel>
         </Grid>
-        <Grid x:Name="gridStudent" Visibility="Collapsed">
-
+        <Grid x:Name="gridStudent" Visibility="Visible">
+            <Label x:Name="lblHeader" Content="        Welcome to Project ACE        " HorizontalAlignment="Center" Margin="77,100,77,0" VerticalAlignment="Top" FontFamily="Segoe UI LIght" FontSize="50" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+            <Button x:Name="btnProceedVote" Width="120" Height="50" Content="Vote Now" FontSize="20"/>
         </Grid>
-        <Grid x:Name="gridViewPartialResults" Visibility="Collapsed">
-
-        </Grid>
+        <!--Teacher UI -->
         <Grid x:Name="gridTeacher" Visibility="Collapsed">
+            <Label Content="Logout" HorizontalAlignment="Left" Margin="748,68,0,0" VerticalAlignment="Top"/>
             <Label Content="Welcome Teacher!" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
             <StackPanel HorizontalAlignment="Left" Height="250" Margin="244,170,0,0" VerticalAlignment="Top" Width="380">
                 <Button x:Name="btnViewListVoters" Content="View Voters" Margin="0,5,0,0" Height="56" Click="btnListStudents_Click"/>
-                <Button x:Name="btnViewListCandidates" Content="View Candidates" Margin="0,5,0,0" Height="56"  Click="btnParties_Click"/>
-                <Button x:Name="btnViewListParties" Content="View Parties" Margin="0,5,0,0" Height="56"  Click="btnCandidates_Click"/>
-                <Button x:Name="btnConfirmClass" Content="Confirm Class Attendance" Margin="0,5,0,0" Height="56" />
+                <Button x:Name="btnViewListCandidates" Content="View Candidates" Margin="0,5,0,0" Height="56" Click="btnCandidates_Click"  />
+                <Button x:Name="btnViewListParties" Content="View Parties" Margin="0,5,0,0" Height="56"  Click="btnParties_Click"/>
+                <Button x:Name="btnConfirmClass" Content="Confirm Class Attendance" Margin="0,5,0,0" Height="56" Click="btnConfirmClass_Click" />
             </StackPanel>
+            <Button x:Name="btnTLogout" Width="30" Height="30" BorderThickness="0" HorizontalAlignment="Left" Margin="801,68,0,0" VerticalAlignment="Top" Background="Transparent" Cursor="Hand" Click="btnALogout_Click" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="Images\logout2.png" Width="30" Height="30"/>
+                    <TextBlock Text="text" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
         </Grid>
+        <!--Admin UI-->
         <Grid x:Name="gridAdmin" Visibility="Collapsed" Height="473" VerticalAlignment="Bottom" Margin="10,0,-10,0">
             <Label Content="Administrator Control Panel" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
             <StackPanel HorizontalAlignment="Left" Height="150" Margin="215,193,0,0" VerticalAlignment="Top" Width="459" Orientation="Horizontal">
@@ -40,7 +47,7 @@
                     <TextBlock Text="text" VerticalAlignment="Center"/>
                 </StackPanel>
                 </Button>
-                <Button x:Name="btnManage" Width="150" Height="150" BorderThickness="0" Margin="0,0,5,0" Background="Gray" Cursor="Hand" Click="btnManage_Click">
+                <Button x:Name="btnManage" Width="150" Height="150" BorderThickness="0" Margin="0,0,5,0" Background="Gray" Click="btnManage_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Images\manage2.png" Width="150" Height="150"/>
                         <TextBlock Text="text" VerticalAlignment="Center" />
@@ -149,25 +156,25 @@
             		Foreground="Gray" FontStyle="Italic" Text="Enter User Number" GotFocus="txtDeleteNumber_GotFocus" Margin="0,200,0,0" />
             </StackPanel>
         </Grid>
-        <Grid x:Name="gridConfirmClass" Visibility="Visible">
+        <Grid x:Name="gridConfirmClass" Visibility="Collapsed">
             <!--UI for class Attendance confimation-->
-            <Label Content="Cofirm Class Attendance" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-            <StackPanel Orientation="Vertical">
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Select a Class to Confirm"/>
+            <Label Content="Confirm Class Attendance" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+            <StackPanel Orientation="Vertical" Width="500" Height="300" Margin="0,100,0,0">
+                <StackPanel Orientation="Horizontal" Width="300" Margin="0,0,0,10">
+                    <Label Content="Select a Class to Confirm" Margin="0,0,25,0"/>
                     <ComboBox x:Name="cmbxClass" Height="25" Width="100"/>
                 </StackPanel>                
-                <ListView x:Name="lstClassList" Width="400" Height="200">
+                <ListView x:Name="lstClassList" Width="450" Height="200">
                     <ListView.View>
                         <GridView AllowsColumnReorder="False">
-                            <GridViewColumn Header="ID" Width="130" DisplayMemberBinding="{Binding ID}"/>
+                            <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding ID}"/>
                             <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"/>
-                            <GridViewColumn Header="Year Section" Width="120" DisplayMemberBinding="{Binding YearSection}"/>
-                            <GridViewColumn Header="Voted" Width="120" DisplayMemberBinding="{Binding HasVoted}"/>
+                            <GridViewColumn Header="Year Section" Width="100" DisplayMemberBinding="{Binding YearSection}"/>
+                            <GridViewColumn Header="Voted" Width="100" DisplayMemberBinding="{Binding HasVoted}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <Button x:Name="btnConfirm" Content="Confirm" Height="25" Width="50"/>
+                <Button x:Name="btnConfirm" Content="Confirm" Height="25" Width="50" Margin="0,10,0,0"/>
             </StackPanel>            
         </Grid>
         <!--All grids below concern the Electoral Process and Registration-->
@@ -232,7 +239,6 @@
                     <Button x:Name="btnCancelCandidate" Content="Cancel" Width="50" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnCancelCandidate_Click" Margin="50,0,0,0"/>
                 </StackPanel>
             </StackPanel>
-
         </Grid>
         <Grid x:Name="gridViewer" Visibility="Collapsed">
             <Label Content="View Listings Panel" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
@@ -247,19 +253,19 @@
             <ListView x:Name="lstVoters" Width="400" Height="300" Margin="0,80,0,0">
                 <ListView.View>
                     <GridView AllowsColumnReorder="False">
-                        <GridViewColumn Header="ID" Width="130" DisplayMemberBinding="{Binding ID}"/>
-                        <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"/>
-                        <GridViewColumn Header="Year Section" Width="120" DisplayMemberBinding="{Binding YearSection}"/>
+                        <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding ID}"/>
+                        <GridViewColumn Header="Name" Width="180" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="Year Section" Width="93" DisplayMemberBinding="{Binding YearSection}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
         </Grid>
         <Grid x:Name="gridParties" Visibility="Collapsed">
             <Label Content="Parties List" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-            <ListView x:Name="lstParties" Width="400" Height="300" Margin="0,80,0,0">
+            <ListView x:Name="lstParties" Width="200" Height="150" Margin="0,80,0,0">
                 <ListView.View>
                     <GridView AllowsColumnReorder="False">
-                        <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="Name" Width="190" DisplayMemberBinding="{Binding Name}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -276,6 +282,27 @@
                     </GridView>
                 </ListView.View>
             </ListView>
+        </Grid>
+        <!--voting UI-->
+        <Grid x:Name="gridVotingPage" Visibility="Collapsed">
+            <Grid x:Name="gridPresident" Visibility="Collapsed">
+                
+            </Grid>
+            <Grid x:Name="gridVPresident" Visibility="Collapsed">
+
+            </Grid>
+            <Grid x:Name="gridSecretary" Visibility="Collapsed">
+
+            </Grid>
+            <Grid x:Name="gridTreasurer" Visibility="Collapsed">
+
+            </Grid>
+            <Grid x:Name="gridPR" Visibility="Collapsed">
+
+            </Grid>
+            <Grid x:Name="gridPO" Visibility="Collapsed">
+
+            </Grid>
         </Grid>
         <Grid x:Name="gridElectoralResults" Visibility="Collapsed">
         </Grid>

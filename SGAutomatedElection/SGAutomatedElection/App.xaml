@@ -9,5 +9,8 @@
         <Style TargetType="Button">
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
+        <Style TargetType="ListViewItem">
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
     </Application.Resources>
 </Application>

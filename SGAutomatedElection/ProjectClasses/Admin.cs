@@ -45,8 +45,8 @@ namespace ProjectClasses
         {
             SqlConnection connection = new SqlConnection(Settings.ConnectionString);
             connection.Open();
-            string commandString = "UPDATE Administrator SET ID='" + ID.ToString() + "', Name='" + Name +"'";
-            string commandString2 = "UPDATE Accounts SET ID='" + ID.ToString() + "', PW='" + Password + "', Utype = Admin";
+            string commandString = "UPDATE Administrator SET ID='" + ID.ToString() + "', Name='" + Name + "' WHERE ID = '" + ID + "'";
+            string commandString2 = "UPDATE Accounts SET ID='" + ID.ToString() + "', PW='" + Password + "', Utype = Admin WHERE ID = '" + ID + "'";
             SqlCommand command = new SqlCommand(commandString, connection);
             SqlCommand command2 = new SqlCommand(commandString2, connection);
             command.ExecuteNonQuery();

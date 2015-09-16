@@ -26,7 +26,8 @@ namespace SGAutomatedElection
         private Candidate aCandidate;
         private Parties aParty;
         private ObservableCollection<StudentListViewItem> students = new ObservableCollection<StudentListViewItem>();
-        private List<CandidateListViewItem> candidates = new List<CandidateListViewItem>();
+        private ObservableCollection<CandidateListViewItem> candidates = new ObservableCollection<CandidateListViewItem>();
+        private ObservableCollection<PartyListViewItem> parties = new ObservableCollection<PartyListViewItem>();
         public MainWindow()
         {
             InitializeComponent();
@@ -40,11 +41,13 @@ namespace SGAutomatedElection
             cmbxDepartment.SelectedValuePath = "Value";
             cmbxSection.DisplayMemberPath = "Name";
             cmbxSection.SelectedValuePath = "Value";
+            cmbxClass.DisplayMemberPath = "Name";
+            cmbxClass.SelectedValuePath = "Value";
         }
         private void PopulateDepartment()
         {
             cmbxDepartment.Items.Clear();
-            cmbxDepartment.Items.Add(new {Name = "Math", Value="Math"});
+            cmbxDepartment.Items.Add(new { Name = "Math", Value = "Math" });
             cmbxDepartment.Items.Add(new { Name = "Science", Value = "Science" });
             cmbxDepartment.Items.Add(new { Name = "English", Value = "English" });
             cmbxDepartment.Items.Add(new { Name = "AP", Value = "AP" });
@@ -53,6 +56,7 @@ namespace SGAutomatedElection
         }
         private void PopulateSection()
         {
+            cmbxClass.Items.Clear();
             cmbxSection.Items.Add(new { Name = "1A", Value = "1A" });
             cmbxSection.Items.Add(new { Name = "1B", Value = "1B" });
             cmbxSection.Items.Add(new { Name = "1C", Value = "1C" });
@@ -76,6 +80,7 @@ namespace SGAutomatedElection
         }
         private void PopulateClass()
         {
+            cmbxClass.Items.Clear();
             cmbxClass.Items.Add(new { Name = "1A", Value = "1A" });
             cmbxClass.Items.Add(new { Name = "1B", Value = "1B" });
             cmbxClass.Items.Add(new { Name = "1C", Value = "1C" });
@@ -99,21 +104,21 @@ namespace SGAutomatedElection
         }
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            
+
             try
             {
                 if (txtPass.Password == GetPass(Convert.ToInt32(txtUsername.Text)))
                 {
                     ((Grid)FindName("gridLogin")).Visibility = System.Windows.Visibility.Collapsed;
-                    if (GetUType(Convert.ToInt32(txtUsername.Text))== "Admin")
+                    if (GetUType(Convert.ToInt32(txtUsername.Text)) == "Admin")
                     {
                         ((Grid)FindName("gridAdmin")).Visibility = System.Windows.Visibility.Visible;
                     }
-                    else if (GetUType(Convert.ToInt32(txtUsername.Text))== "Teacher")
+                    else if (GetUType(Convert.ToInt32(txtUsername.Text)) == "Teacher")
                     {
                         ((Grid)FindName("gridTeacher")).Visibility = System.Windows.Visibility.Visible;
                     }
-                    else if (GetUType(Convert.ToInt32(txtUsername.Text))== "Student")
+                    else if (GetUType(Convert.ToInt32(txtUsername.Text)) == "Student")
                     {
                         ((Grid)FindName("gridStudent")).Visibility = System.Windows.Visibility.Visible;
                     }
@@ -127,15 +132,17 @@ namespace SGAutomatedElection
             {
                 MessageBox.Show("Do not leave empty fields!");
             }
-            
+
         }
         private void btnALogout_Click(object sender, RoutedEventArgs e)
         {
             ((Grid)FindName("gridAdmin")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridStudent")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridTeacher")).Visibility = System.Windows.Visibility.Collapsed;
             ((Grid)FindName("gridLogin")).Visibility = System.Windows.Visibility.Visible;
         }
 
-       
+
         private void btnMStudents_Click(object sender, RoutedEventArgs e)
         {
             ((Grid)FindName("gridManageMain")).Visibility = System.Windows.Visibility.Collapsed;
@@ -199,7 +206,7 @@ namespace SGAutomatedElection
             ((Button)FindName("btnAddUser")).Visibility = System.Windows.Visibility.Collapsed;
             ((Button)FindName("btnEditUser")).Visibility = System.Windows.Visibility.Visible;
             ControlCollapse();
-            DisableForEdit();             
+            DisableForEdit();
         }
         private void DisableForEdit()
         {
@@ -243,7 +250,7 @@ namespace SGAutomatedElection
             {
                 userlabel = "Teacher";
             }
-            else if(flag ==3)
+            else if (flag == 3)
             {
                 userlabel = "Administrator";
             }
@@ -298,40 +305,72 @@ namespace SGAutomatedElection
         //CRUD process
         private void btnAddUser_Click(object sender, RoutedEventArgs e)
         {
-            if (flag == 1)
+            while (pbConfirmPassword.Password != pbPassword.Password)
             {
-                aStudent = new Student(Convert.ToInt32(txtNumber.Text), txtName.Text, cmbxSection.Text, pbPassword.Password, 0);
-                aStudent.Insert();
+                ClearPassword();
+                MessageBox.Show("Passwords do not match!");
             }
-            else if (flag == 2)
+            try
             {
-                aTeacher = new Teacher(Convert.ToInt32(txtNumber.Text), txtName.Text, cmbxDepartment.Text, pbPassword.Password);
-                aTeacher.Insert();
+                if (flag == 1)
+                {
+                    aStudent = new Student(Convert.ToInt32(txtNumber.Text), txtName.Text, cmbxSection.Text, pbPassword.Password, 0);
+                    aStudent.Insert();
+                }
+                else if (flag == 2)
+                {
+                    aTeacher = new Teacher(Convert.ToInt32(txtNumber.Text), txtName.Text, cmbxDepartment.Text, pbPassword.Password);
+                    aTeacher.Insert();
+                }
+                else if (flag == 3)
+                {
+                    aAdmin = new Admin(Convert.ToInt32(txtNumber.Text), txtName.Text, pbPassword.Password);
+                    aAdmin.Insert();
+                }
             }
-            else if (flag == 3)
+            catch
             {
-                aAdmin = new Admin(Convert.ToInt32(txtNumber.Text), txtName.Text, pbPassword.Password);
-                aAdmin.Insert();
+                MessageBox.Show("Do not leave any field blank!");
             }
+
             ClearFields();
+        }
+
+        private void ClearPassword()
+        {
+            ((PasswordBox)FindName("pbPassword")).Clear();
+            ((PasswordBox)FindName("pbConfirmPassword")).Clear();
         }
 
         private void btnEditUser_Click(object sender, RoutedEventArgs e)
         {
-            if (flag == 1)
+            while (pbConfirmPassword.Password != pbPassword.Password)
             {
-                aStudent = new Student(Convert.ToInt32(txtNumber.Text), txtName.Text,  cmbxSection.Text, pbPassword.Password, 0);
-                aStudent.Update();
+                ClearPassword();
+                MessageBox.Show("Passwords do not match!");
             }
-            else if (flag == 2)
+            try
             {
-                aTeacher = new Teacher(Convert.ToInt32(txtNumber.Text), txtName.Text, cmbxDepartment.Text, pbPassword.Password);
-                aTeacher.Update();
+                if (flag == 1)
+                {
+                    aStudent = new Student(Convert.ToInt32(txtNumber.Text), txtName.Text, cmbxSection.Text, pbPassword.Password, 0);
+                    aStudent.Update();
+                }
+                else if (flag == 2)
+                {
+                    aTeacher = new Teacher(Convert.ToInt32(txtNumber.Text), txtName.Text, cmbxDepartment.Text, pbPassword.Password);
+                    aTeacher.Update();
+                }
+                else if (flag == 3)
+                {
+                    aAdmin = new Admin(Convert.ToInt32(txtNumber.Text), txtName.Text, pbPassword.Password);
+                    aAdmin.Update();
+                }
             }
-            else if (flag == 3)
+            catch (Exception ex)
             {
-                aAdmin = new Admin(Convert.ToInt32(txtNumber.Text), txtName.Text, pbPassword.Password);
-                aAdmin.Update();
+                MessageBox.Show(ex.ToString());
+                // MessageBox.Show("Do not leave any field blank!");
             }
         }
 
@@ -355,7 +394,7 @@ namespace SGAutomatedElection
                         catch (Exception ex)
                         {
                             MessageBox.Show(ex.ToString());
-                        }                       
+                        }
                     }
                     else if (flag == 2)
                     {
@@ -365,10 +404,10 @@ namespace SGAutomatedElection
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.ToString()); 
+                            MessageBox.Show(ex.ToString());
                         }
                     }
-                    else if (flag ==3)
+                    else if (flag == 3)
                     {
                         try
                         {
@@ -397,7 +436,7 @@ namespace SGAutomatedElection
                     cmbxSection.Text = reader["YearSection"].ToString();
                 }
                 reader.Close();
-                SqlCommand command2= new SqlCommand(comstr2, connection);
+                SqlCommand command2 = new SqlCommand(comstr2, connection);
                 SqlDataReader reader2 = command2.ExecuteReader();
                 while (reader2.Read())
                 {
@@ -419,7 +458,7 @@ namespace SGAutomatedElection
                 while (reader.Read())
                 {
                     txtName.Text = reader["Name"].ToString();
-                    cmbxSection.Text = reader["Department"].ToString();
+                    cmbxDepartment.Text = reader["Department"].ToString();
                 }
                 reader.Close();
                 SqlCommand command2 = new SqlCommand(comstr2, connection);
@@ -436,7 +475,7 @@ namespace SGAutomatedElection
         {
             string Utype = "";
 
-            string comstr = "SELECT * from Accounts WHERE ID ='" + number.ToString()+"'";
+            string comstr = "SELECT * from Accounts WHERE ID ='" + number.ToString() + "'";
             using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
             {
                 connection.Open();
@@ -475,7 +514,7 @@ namespace SGAutomatedElection
         }
         public string GetPass(int number)
         {
-            string pass ="";
+            string pass = "";
             string comstr = "SELECT * from Accounts WHERE ID = '" + number.ToString() + "'";
             using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
             {
@@ -484,7 +523,7 @@ namespace SGAutomatedElection
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                     pass = reader["PW"].ToString();
+                    pass = reader["PW"].ToString();
                 }
                 reader.Close();
             }
@@ -554,13 +593,14 @@ namespace SGAutomatedElection
             ((TextBox)FindName("txtDeleteNumber")).FontStyle = FontStyles.Normal;
             ((TextBox)FindName("txtDeleteNumber")).Foreground = new SolidColorBrush(Colors.Black);
         }
-        public int ID {//for data binding only ni Students pero okay na to. move on to Name
-            get 
-            { 
-                return Convert.ToInt32(txtDeleteNumber.Text); 
-            } 
+        public int ID
+        {//for data binding only ni Students pero okay na to. move on to Name
+            get
+            {
+                return Convert.ToInt32(txtDeleteNumber.Text);
+            }
             set
-            {  
+            {
                 txtDeleteNumber.Text = value.ToString();
             }
         }
@@ -572,7 +612,7 @@ namespace SGAutomatedElection
                     "Student.ID AS ID, " +
                     "Student.Name AS Name, " +
                     "Student.YearSection AS YearSection " +
-                "FROM Student";
+                "FROM Student ORDER BY YearSection";
 
             using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
             {
@@ -600,9 +640,9 @@ namespace SGAutomatedElection
                 "SELECT " +
                     "Candidates.ID AS ID, " +
                     "Candidates.Name AS Name, " +
-                    "Candidates.Party AS Party " +
-                    "Candidates.Position AS Party"+
-                "FROM Candidates";
+                    "Candidates.Party AS Party, " +
+                    "Candidates.Position AS Position" +
+                " FROM Candidates ORDER BY PARTY";
 
             using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
             {
@@ -620,9 +660,31 @@ namespace SGAutomatedElection
                         Position = reader["Position"].ToString()//pdeng di ko muna iretrieve ung votes
                     });
                 }
-                  lstCandidates.ItemsSource = students;
+                lstCandidates.ItemsSource = candidates;
             }
         }
+        private void PopulatePartiesList()
+        {
+            candidates.Clear();
+            string comStr =
+                "SELECT Parties.Name AS Name FROM Parties";
+
+            using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(comStr, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    parties.Add(new PartyListViewItem()
+                    {
+                        Name = reader["Name"].ToString()
+                    });
+                }
+                lstParties.ItemsSource = parties;
+            }
+        }
+
         public void ClearFields()
         {
             ((TextBox)FindName("txtName")).Clear();
@@ -636,14 +698,14 @@ namespace SGAutomatedElection
 
         private void btnAddCandidate_Click(object sender, RoutedEventArgs e)
         {
-            
-            students.Clear();//if i dont put this, it shits so bad
+
+            students.Clear();
             string comStr =
                 "SELECT " +
                     "Student.ID AS ID, " +
                     "Student.Name AS Name, " +
                     "Student.YearSection AS YearSection " +
-                "FROM Student WHERE ID = '"+txtAddCandidate.Text+"'";
+                "FROM Student WHERE ID = '" + txtAddCandidate.Text + "'";
             using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
             {
                 connection.Open();
@@ -665,14 +727,13 @@ namespace SGAutomatedElection
                     cmbxPR.Items.Add(reader["Name"].ToString());
                     cmbxPO.Items.Add(reader["Name"].ToString());
                 }
-               // aCandidate = new Candidate(ID,);
-             //   aCandidate.Insert();
                 reader.Close();
                 foreach (StudentListViewItem s in students)
                 {
                     lstAddPartyMembers.Items.Add(s);
                 }
-            }            
+            }
+            txtAddCandidate.Clear();
         }
 
         private void btnViewCandidates_Click(object sender, RoutedEventArgs e)
@@ -692,12 +753,15 @@ namespace SGAutomatedElection
         {
             ((Grid)FindName("gridViewer")).Visibility = System.Windows.Visibility.Collapsed;
             ((Grid)FindName("gridParties")).Visibility = System.Windows.Visibility.Visible;
+            ((Grid)FindName("gridTeacher")).Visibility = System.Windows.Visibility.Collapsed;
+            PopulatePartiesList();
         }
 
         private void btnCandidates_Click(object sender, RoutedEventArgs e)
         {
             ((Grid)FindName("gridViewer")).Visibility = System.Windows.Visibility.Collapsed;
             ((Grid)FindName("gridCandidates")).Visibility = System.Windows.Visibility.Visible;
+            ((Grid)FindName("gridTeacher")).Visibility = System.Windows.Visibility.Collapsed;
             PopulateCList();
         }
 
@@ -793,7 +857,7 @@ namespace SGAutomatedElection
         {
             int number = 0;
             string comStr =
-                "SELECT Student.ID AS ID, Student.Name AS Name FROM Student WHERE Name = '"+name+"'";
+                "SELECT Student.ID AS ID, Student.Name AS Name FROM Student WHERE Name = '" + name + "'";
             using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
             {
                 connection.Open();
@@ -805,10 +869,15 @@ namespace SGAutomatedElection
                     number = Convert.ToInt32(reader["ID"]);
                 }
                 reader.Close();
-            }           
+            }
             return number;
         }
+
+        private void btnConfirmClass_Click(object sender, RoutedEventArgs e)
+        {
+            ((Grid)FindName("gridTeacher")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridConfirmClass")).Visibility = System.Windows.Visibility.Visible;
+            PopulateClass();
+        }
     }
-    
 }
-//gridAddPartyMembers
