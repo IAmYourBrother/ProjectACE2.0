@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Project ACE" Height="500" Width="900" Background="Silver" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" >
     <Grid >
-        <Grid x:Name="gridLogin" Visibility="visible">
+        <Grid x:Name="gridLogin" Visibility="Visible">
             <PasswordBox x:Name="txtPass" HorizontalAlignment="Left" Margin="362,320,0,0" VerticalAlignment="Top" Width="177" Height="25"
                          Foreground="Gray" FontStyle="Italic" Password="******" GotFocus="txtPass_GotFocus" KeyboardNavigation.TabIndex="2"/>
             <TextBox x:Name="txtUsername" HorizontalAlignment="Left" Height="25" Margin="362,285,0,0" TextWrapping="Wrap" 
@@ -284,41 +284,57 @@
             </ListView>
         </Grid>
         <!--voting UI-->
-            <Grid x:Name="gridPresident" Visibility="Collapsed">
-                <Label Content="Presidents" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-            <WrapPanel x:Name="wpPresident" Orientation="Horizontal" Width="350" Height="300" Margin="0,100,0,0">
+        <Grid x:Name="gridPresident" Visibility="Collapsed">   
+            <Label Content="Presidents" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+            <StackPanel Orientation="Vertical">
+            <WrapPanel x:Name="wpPresident" Orientation="Horizontal" Width="350" Height="200" Margin="0,120,0,0">
             </WrapPanel>
-            <Button x:Name="btnGotoVP" Content="Proceed" Width="50" Height="20" Margin="421,372,421,81" Click="btnGotoVP_Click"/>
+            <Button x:Name="btnGotoVP" Content="Proceed" Width="60" Height="25"  Click="btnGotoVP_Click" Margin="0,0,0,50"/>
+            </StackPanel>
         </Grid>
             <Grid x:Name="gridVPresident" Visibility="Collapsed">
                 <Label Content="Vice Presidents" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-                <WrapPanel x:Name="wpVPresident" Orientation="Horizontal" Width="350" Height="300">
+            <StackPanel Orientation="Vertical">
+                <WrapPanel x:Name="wpVPresident" Orientation="Horizontal" Width="350" Height="200" Margin="0,120,0,0" >
                 </WrapPanel>
-            <Button x:Name="btnGotoSec" Content="Proceed" Width="50" Height="20" Margin="421,372,421,81" Click="btnGotoSec_Click"/>
+                <Button x:Name="btnGotoSec" Content="Proceed" Width="60" Height="25" Margin="0,0,0,50" Click="btnGotoSec_Click"/>
+            </StackPanel>
         </Grid>
             <Grid x:Name="gridSecretary" Visibility="Collapsed">
                 <Label Content="Secretaries" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-                <WrapPanel x:Name="wpSecretary" Orientation="Horizontal" Width="350" Height="300">
+            <StackPanel Orientation="Vertical">
+                <WrapPanel x:Name="wpSecretary" Orientation="Horizontal" Width="350" Height="200" Margin="0,120,0,0">
                 </WrapPanel>
-            <Button x:Name="btnGotoTreas" Content="Proceed" Width="50" Height="20" Margin="421,372,421,81" Click="btnGotoTreas_Click"/>
+                <Button x:Name="btnGotoTreas" Content="Proceed" Width="60" Height="25" Margin="0,0,0,50" Click="btnGotoTreas_Click"/>
+            </StackPanel>
         </Grid>
             <Grid x:Name="gridTreasurer" Visibility="Collapsed">
                 <Label Content="Treasurers" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-                <WrapPanel x:Name="wpTreasurer" Orientation="Horizontal" Width="350" Height="300">
+            <StackPanel Orientation="Vertical">
+                <WrapPanel x:Name="wpTreasurer" Orientation="Horizontal" Width="350" Height="200" Margin="0,120,0,0">
                 </WrapPanel>
-            <Button x:Name="btnGotoPRs" Content="Proceed" Width="50" Height="20" Margin="421,372,421,81" Click="btnGotoPRs_Click"/>
+                <Button x:Name="btnGotoPRs" Content="Proceed" Width="60" Height="25" Margin="0,0,0,50" Click="btnGotoPRs_Click"/>
+            </StackPanel>
         </Grid>
             <Grid x:Name="gridPR" Visibility="Collapsed">
                 <Label Content="Public Relations Officers" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-                <WrapPanel x:Name="wpPRs" Orientation="Horizontal" Width="350" Height="300">
+            <StackPanel Orientation="Vertical">
+                <WrapPanel x:Name="wpPRs" Orientation="Horizontal" Width="350" Height="200" Margin="0,120,0,0">
                 </WrapPanel>
-            <Button x:Name="btnGotoPOs" Content="Proceed" Width="50" Height="20" Margin="421,372,421,81"/>
+                <Button x:Name="btnGotoPOs" Content="Proceed" Width="60" Height="25" Margin="0,0,0,50" Click="btnGotoPOs_Click"/>
+            </StackPanel>
         </Grid>
             <Grid x:Name="gridPO" Visibility="Collapsed">
                 <Label Content="Peace Officers" Margin="40,60,40,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-                <WrapPanel x:Name="wpPOs" Orientation="Horizontal" Width="350" Height="300">
+            <StackPanel Orientation="Vertical">
+                <WrapPanel x:Name="wpPOs" Orientation="Horizontal" Width="350" Height="200" Margin="0,120,0,0">
                 </WrapPanel>
-            <Button x:Name="btnSumbitVotes" Content="Proceed" Width="50" Height="20" Margin="421,372,421,81"/>
+                <Button x:Name="btnSubmitVotes" Content="Submit Votes" Width="60" Height="25" Margin="0,0,0,50" Click="btnSubmitVotes_Click"/>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="gridCongrats" Visibility="Collapsed">
+            <Label Content="        Thank you for participating        " HorizontalAlignment="Center" Margin="77,100,77,0" VerticalAlignment="Top" FontFamily="Segoe UI LIght" FontSize="50" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+            <Button x:Name="btnGoHome" Width="120" Height="50" Content="Go to Home" FontSize="20" Click="btnALogout_Click"/>
         </Grid>
         <Grid x:Name="gridElectoralResults" Visibility="Collapsed">
         </Grid>

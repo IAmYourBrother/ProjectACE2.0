@@ -145,6 +145,7 @@ namespace SGAutomatedElection
             ((Grid)FindName("gridAdmin")).Visibility = System.Windows.Visibility.Collapsed;
             ((Grid)FindName("gridStudent")).Visibility = System.Windows.Visibility.Collapsed;
             ((Grid)FindName("gridTeacher")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridCongrats")).Visibility = System.Windows.Visibility.Collapsed;
             ((Grid)FindName("gridLogin")).Visibility = System.Windows.Visibility.Visible;
         }
 
@@ -1036,7 +1037,7 @@ namespace SGAutomatedElection
         private void CreateRbSecretaries()
         {
             WrapPanel panel = (WrapPanel)FindName("wpSecretary");
-            secretaries = GetListVPresidents();
+            secretaries = GetListSecretaries();
             for (int i = 0; i < secretaries.Count; i++)
             {
                 panel.Children.Add(new RadioButton()
@@ -1052,7 +1053,7 @@ namespace SGAutomatedElection
         private void CreateRbTreasurers()
         {
             WrapPanel panel = (WrapPanel)FindName("wpTreasurer");
-            treasurers = GetListVPresidents();
+            treasurers = GetListTreasurers();
             for (int i = 0; i < treasurers.Count; i++)
             {
                 panel.Children.Add(new RadioButton()
@@ -1068,7 +1069,7 @@ namespace SGAutomatedElection
         private void CreateRbPRs()
         {
             WrapPanel panel = (WrapPanel)FindName("wpPRs");
-            prs = GetListVPresidents();
+            prs = GetListPRs();
             for (int i = 0; i < prs.Count; i++)
             {
                 panel.Children.Add(new RadioButton()
@@ -1084,7 +1085,7 @@ namespace SGAutomatedElection
         private void CreateRbPOs()
         {
             WrapPanel panel = (WrapPanel)FindName("wpPOs");
-            pos = GetListVPresidents();
+            pos = GetListPOs();
             for (int i = 0; i < pos.Count; i++)
             {
                 panel.Children.Add(new RadioButton()
@@ -1101,24 +1102,41 @@ namespace SGAutomatedElection
         {
             ((Grid)FindName("gridPresident")).Visibility = System.Windows.Visibility.Collapsed;
             ((Grid)FindName("gridVPresident")).Visibility = System.Windows.Visibility.Visible;
+            CreateRbVPresidents();
         }
 
         private void btnGotoSec_Click(object sender, RoutedEventArgs e)
         {
             ((Grid)FindName("gridVPresident")).Visibility = System.Windows.Visibility.Collapsed;
             ((Grid)FindName("gridSecretary")).Visibility = System.Windows.Visibility.Visible;
+            CreateRbSecretaries();
         }
 
         private void btnGotoTreas_Click(object sender, RoutedEventArgs e)
         {
             ((Grid)FindName("gridSecretary")).Visibility = System.Windows.Visibility.Collapsed;
             ((Grid)FindName("gridTreasurer")).Visibility = System.Windows.Visibility.Visible;
+            CreateRbTreasurers();
         }
 
         private void btnGotoPRs_Click(object sender, RoutedEventArgs e)
         {
             ((Grid)FindName("gridTreasurer")).Visibility = System.Windows.Visibility.Collapsed;
             ((Grid)FindName("gridPR")).Visibility = System.Windows.Visibility.Visible;
+            CreateRbPRs();
+        }
+
+        private void btnGotoPOs_Click(object sender, RoutedEventArgs e)
+        {
+            ((Grid)FindName("gridPR")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridPO")).Visibility = System.Windows.Visibility.Visible;
+            CreateRbPOs();
+        }
+
+        private void btnSubmitVotes_Click(object sender, RoutedEventArgs e)
+        {
+            ((Grid)FindName("gridPO")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridCongrats")).Visibility = System.Windows.Visibility.Visible;
         }
 
 
