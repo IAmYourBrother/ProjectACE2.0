@@ -28,6 +28,12 @@ namespace SGAutomatedElection
         private ObservableCollection<StudentListViewItem> students = new ObservableCollection<StudentListViewItem>();
         private ObservableCollection<CandidateListViewItem> candidates = new ObservableCollection<CandidateListViewItem>();
         private ObservableCollection<PartyListViewItem> parties = new ObservableCollection<PartyListViewItem>();
+        private List<string> presidents = new List<string>();
+        private List<string> vicepresidents = new List<string>();
+        private List<string> secretaries = new List<string>();
+        private List<string> treasurers = new List<string>();
+        private List<string> prs = new List<string>();
+        private List<string> pos = new List<string>();
         public MainWindow()
         {
             InitializeComponent();
@@ -879,5 +885,243 @@ namespace SGAutomatedElection
             ((Grid)FindName("gridConfirmClass")).Visibility = System.Windows.Visibility.Visible;
             PopulateClass();
         }
+
+        private void btnProceedVote_Click(object sender, RoutedEventArgs e)
+        {
+            ((Grid)FindName("gridStudent")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridPresident")).Visibility = System.Windows.Visibility.Visible;
+            CreateRbPresidents();
+        }
+
+        private List<string> GetListPresidents()
+        {
+            presidents.Clear();
+            string comStr = "SELECT Candidates.Name AS Name, Candidates.Party FROM Candidates WHERE Candidates.Position = 'President'";
+
+            using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(comStr, connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    presidents.Add(reader["Name"].ToString() +" ("+ reader["Party"].ToString()+") ");
+                }
+                reader.Close();
+            }
+            return presidents;
+        }
+        private List<string> GetListVPresidents()
+        {
+            vicepresidents.Clear();
+            string comStr = "SELECT Candidates.Name AS Name, Candidates.Party FROM Candidates WHERE Candidates.Position = 'Vice President'";
+
+            using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(comStr, connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    vicepresidents.Add(reader["Name"].ToString() + " (" + reader["Party"].ToString() + ") ");
+                }
+                reader.Close();
+            }
+            return vicepresidents;
+        }
+        private List<string> GetListSecretaries()
+        {
+            secretaries.Clear();
+            string comStr = "SELECT Candidates.Name AS Name, Candidates.Party FROM Candidates WHERE Candidates.Position = 'Secretary'";
+
+            using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(comStr, connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    secretaries.Add(reader["Name"].ToString() + " (" + reader["Party"].ToString() + ") ");
+                }
+                reader.Close();
+            }
+            return secretaries;
+        }
+        private List<string> GetListTreasurers()
+        {
+            treasurers.Clear();
+            string comStr = "SELECT Candidates.Name AS Name, Candidates.Party FROM Candidates WHERE Candidates.Position = 'Treasurer'";
+
+            using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(comStr, connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    treasurers.Add(reader["Name"].ToString() + " (" + reader["Party"].ToString() + ") ");
+                }
+                reader.Close();
+            }
+            return treasurers;
+        }
+        private List<string> GetListPRs()
+        {
+            prs.Clear();
+            string comStr = "SELECT Candidates.Name AS Name, Candidates.Party FROM Candidates WHERE Candidates.Position = 'Public Relations'";
+
+            using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(comStr, connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    prs.Add(reader["Name"].ToString() + " (" + reader["Party"].ToString() + ") ");
+                }
+                reader.Close();
+            }
+            return prs;
+        }
+        private List<string> GetListPOs()
+        {
+            pos.Clear();
+            string comStr = "SELECT Candidates.Name AS Name, Candidates.Party FROM Candidates WHERE Candidates.Position = 'Peace Officer'";
+
+            using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(comStr, connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    pos.Add(reader["Name"].ToString() + " (" + reader["Party"].ToString() + ") ");
+                }
+                reader.Close();
+            }
+            return pos;
+        }
+        private void CreateRbPresidents()
+        {
+            WrapPanel panel = (WrapPanel)FindName("wpPresident");
+            presidents = GetListPresidents();
+            for (int i = 0; i < presidents.Count; i++)
+            {
+                panel.Children.Add(new RadioButton() { Content = presidents[i], Width = 300, Height = 25, FontSize = 14, 
+                    VerticalContentAlignment = System.Windows.VerticalAlignment.Center});
+            }
+        }
+        private void CreateRbVPresidents()
+        {
+            WrapPanel panel = (WrapPanel)FindName("wpVPresident");
+            vicepresidents = GetListVPresidents();
+            for (int i = 0; i < vicepresidents.Count; i++)
+            {
+                panel.Children.Add(new RadioButton()
+                {
+                    Content = vicepresidents[i],
+                    Width = 300,
+                    Height = 25,
+                    FontSize = 14,
+                    VerticalContentAlignment = System.Windows.VerticalAlignment.Center
+                });
+            }
+        }
+        private void CreateRbSecretaries()
+        {
+            WrapPanel panel = (WrapPanel)FindName("wpSecretary");
+            secretaries = GetListVPresidents();
+            for (int i = 0; i < secretaries.Count; i++)
+            {
+                panel.Children.Add(new RadioButton()
+                {
+                    Content = secretaries[i],
+                    Width = 300,
+                    Height = 25,
+                    FontSize = 14,
+                    VerticalContentAlignment = System.Windows.VerticalAlignment.Center
+                });
+            }
+        }
+        private void CreateRbTreasurers()
+        {
+            WrapPanel panel = (WrapPanel)FindName("wpTreasurer");
+            treasurers = GetListVPresidents();
+            for (int i = 0; i < treasurers.Count; i++)
+            {
+                panel.Children.Add(new RadioButton()
+                {
+                    Content = treasurers[i],
+                    Width = 300,
+                    Height = 25,
+                    FontSize = 14,
+                    VerticalContentAlignment = System.Windows.VerticalAlignment.Center
+                });
+            }
+        }
+        private void CreateRbPRs()
+        {
+            WrapPanel panel = (WrapPanel)FindName("wpPRs");
+            prs = GetListVPresidents();
+            for (int i = 0; i < prs.Count; i++)
+            {
+                panel.Children.Add(new RadioButton()
+                {
+                    Content = prs[i],
+                    Width = 300,
+                    Height = 25,
+                    FontSize = 14,
+                    VerticalContentAlignment = System.Windows.VerticalAlignment.Center
+                });
+            }
+        }
+        private void CreateRbPOs()
+        {
+            WrapPanel panel = (WrapPanel)FindName("wpPOs");
+            pos = GetListVPresidents();
+            for (int i = 0; i < pos.Count; i++)
+            {
+                panel.Children.Add(new RadioButton()
+                {
+                    Content = pos[i],
+                    Width = 300,
+                    Height = 25,
+                    FontSize = 14,
+                    VerticalContentAlignment = System.Windows.VerticalAlignment.Center
+                });
+            }
+        }
+        private void btnGotoVP_Click(object sender, RoutedEventArgs e)
+        {
+            ((Grid)FindName("gridPresident")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridVPresident")).Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void btnGotoSec_Click(object sender, RoutedEventArgs e)
+        {
+            ((Grid)FindName("gridVPresident")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridSecretary")).Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void btnGotoTreas_Click(object sender, RoutedEventArgs e)
+        {
+            ((Grid)FindName("gridSecretary")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridTreasurer")).Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void btnGotoPRs_Click(object sender, RoutedEventArgs e)
+        {
+            ((Grid)FindName("gridTreasurer")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridPR")).Visibility = System.Windows.Visibility.Visible;
+        }
+
+
+        
     }
 }
