@@ -15,7 +15,7 @@ namespace SGAutomatedElection
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    /// </summary> 
     public partial class MainWindow : Window
     {
         private int flag = 0, flag2 = 0;
@@ -25,15 +25,23 @@ namespace SGAutomatedElection
         private Admin aAdmin;
         private Candidate aCandidate;
         private Parties aParty;
+        private Votes aVote;
         private ObservableCollection<StudentListViewItem> students = new ObservableCollection<StudentListViewItem>();
         private ObservableCollection<CandidateListViewItem> candidates = new ObservableCollection<CandidateListViewItem>();
         private ObservableCollection<PartyListViewItem> parties = new ObservableCollection<PartyListViewItem>();
-        private List<string> presidents = new List<string>();
+        public  List<string> presidents = new List<string>();
+      
         private List<string> vicepresidents = new List<string>();
         private List<string> secretaries = new List<string>();
         private List<string> treasurers = new List<string>();
         private List<string> prs = new List<string>();
         private List<string> pos = new List<string>();
+        private List<string> vicepresidentsp = new List<string>();
+        private List<string> secretariesp = new List<string>();
+        private List<string> treasurersp = new List<string>();
+        private List<string> prsp = new List<string>();
+        private List<string> posp = new List<string>();
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -49,6 +57,18 @@ namespace SGAutomatedElection
             cmbxSection.SelectedValuePath = "Value";
             cmbxClass.DisplayMemberPath = "Name";
             cmbxClass.SelectedValuePath = "Value";
+            cmbxVotePresident.DisplayMemberPath = "Name";
+            cmbxVotePresident.SelectedValuePath = "Value";
+            cmbxVoteVPresident.DisplayMemberPath = "Name";
+            cmbxVoteVPresident.SelectedValuePath = "Value";
+            cmbxVoteSecretary.DisplayMemberPath = "Name";
+            cmbxVoteSecretary.SelectedValuePath = "Value";
+            cmbxVoteTreasurer.DisplayMemberPath = "Name";
+            cmbxVoteTreasurer.SelectedValuePath = "Value";
+            cmbxVotePR.DisplayMemberPath = "Name";
+            cmbxVotePR.SelectedValuePath = "Value";
+            cmbxVotePO.DisplayMemberPath = "Name";
+            cmbxVotePO.SelectedValuePath = "Value";
         }
         private void PopulateDepartment()
         {
@@ -62,7 +82,7 @@ namespace SGAutomatedElection
         }
         private void PopulateSection()
         {
-            cmbxClass.Items.Clear();
+            cmbxSection.Items.Clear();
             cmbxSection.Items.Add(new { Name = "1A", Value = "1A" });
             cmbxSection.Items.Add(new { Name = "1B", Value = "1B" });
             cmbxSection.Items.Add(new { Name = "1C", Value = "1C" });
@@ -119,14 +139,17 @@ namespace SGAutomatedElection
                     if (GetUType(Convert.ToInt32(txtUsername.Text)) == "Admin")
                     {
                         ((Grid)FindName("gridAdmin")).Visibility = System.Windows.Visibility.Visible;
+                        flag = 3;
                     }
                     else if (GetUType(Convert.ToInt32(txtUsername.Text)) == "Teacher")
                     {
                         ((Grid)FindName("gridTeacher")).Visibility = System.Windows.Visibility.Visible;
+                        flag = 2;
                     }
                     else if (GetUType(Convert.ToInt32(txtUsername.Text)) == "Student")
                     {
                         ((Grid)FindName("gridStudent")).Visibility = System.Windows.Visibility.Visible;
+                        flag = 1;
                     }
                 }
                 else
@@ -377,7 +400,7 @@ namespace SGAutomatedElection
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
-                // MessageBox.Show("Do not leave any field blank!");
+                MessageBox.Show("Do not leave any field blank!");
             }
         }
 
@@ -751,24 +774,52 @@ namespace SGAutomatedElection
 
         private void btnListStudents_Click(object sender, RoutedEventArgs e)
         {
-            ((Grid)FindName("gridViewer")).Visibility = System.Windows.Visibility.Collapsed;
-            ((Grid)FindName("gridVoters")).Visibility = System.Windows.Visibility.Visible;
+            if (flag == 3)
+            {
+                ((Grid)FindName("gridViewer")).Visibility = System.Windows.Visibility.Collapsed;
+                ((Grid)FindName("gridVoters")).Visibility = System.Windows.Visibility.Visible;                
+            }
+            else if (flag == 2)
+            {
+                ((Grid)FindName("gridTeacher")).Visibility = System.Windows.Visibility.Collapsed;
+                ((Grid)FindName("gridVoters")).Visibility = System.Windows.Visibility.Visible;
+                ((Button)FindName("btnVotersCancel")).Visibility = System.Windows.Visibility.Collapsed;
+                ((Button)FindName("btnTVotersCancel")).Visibility = System.Windows.Visibility.Visible; 
+            }            
             PopulateSList();
         }
 
         private void btnParties_Click(object sender, RoutedEventArgs e)
         {
-            ((Grid)FindName("gridViewer")).Visibility = System.Windows.Visibility.Collapsed;
-            ((Grid)FindName("gridParties")).Visibility = System.Windows.Visibility.Visible;
-            ((Grid)FindName("gridTeacher")).Visibility = System.Windows.Visibility.Collapsed;
+            if (flag == 3)
+            {
+                ((Grid)FindName("gridViewer")).Visibility = System.Windows.Visibility.Collapsed;
+                ((Grid)FindName("gridParties")).Visibility = System.Windows.Visibility.Visible;   
+            }
+            else if (flag == 2)
+            {
+                ((Grid)FindName("gridTeacher")).Visibility = System.Windows.Visibility.Collapsed;
+                ((Grid)FindName("gridParties")).Visibility = System.Windows.Visibility.Visible;
+                ((Button)FindName("btnPartiesCancel")).Visibility = System.Windows.Visibility.Collapsed;
+                ((Button)FindName("btnTPartiesCancel")).Visibility = System.Windows.Visibility.Visible; 
+            }
             PopulatePartiesList();
         }
 
         private void btnCandidates_Click(object sender, RoutedEventArgs e)
         {
-            ((Grid)FindName("gridViewer")).Visibility = System.Windows.Visibility.Collapsed;
-            ((Grid)FindName("gridCandidates")).Visibility = System.Windows.Visibility.Visible;
-            ((Grid)FindName("gridTeacher")).Visibility = System.Windows.Visibility.Collapsed;
+            if (flag == 3)
+            {
+                ((Grid)FindName("gridViewer")).Visibility = System.Windows.Visibility.Collapsed;
+                ((Grid)FindName("gridCandidates")).Visibility = System.Windows.Visibility.Visible;
+            }
+            else if (flag == 2)
+            {
+                ((Grid)FindName("gridTeacher")).Visibility = System.Windows.Visibility.Collapsed;
+                ((Grid)FindName("gridCandidates")).Visibility = System.Windows.Visibility.Visible;
+                ((Button)FindName("btnCandidatesCancel")).Visibility = System.Windows.Visibility.Collapsed;
+                ((Button)FindName("btnTCandidatesCancel")).Visibility = System.Windows.Visibility.Visible; 
+            }          
             PopulateCList();
         }
 
@@ -848,7 +899,8 @@ namespace SGAutomatedElection
 
         private void btnCancelParty_Click(object sender, RoutedEventArgs e)
         {
-
+            ((Grid)FindName("gridRegisterParty")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridManageMain")).Visibility = System.Windows.Visibility.Visible;
         }
 
         private void btnDeletePartyMembers_Click(object sender, RoutedEventArgs e)
@@ -890,13 +942,17 @@ namespace SGAutomatedElection
         private void btnProceedVote_Click(object sender, RoutedEventArgs e)
         {
             ((Grid)FindName("gridStudent")).Visibility = System.Windows.Visibility.Collapsed;
-            ((Grid)FindName("gridPresident")).Visibility = System.Windows.Visibility.Visible;
-            CreateRbPresidents();
+            ((Grid)FindName("gridVotingPage")).Visibility = System.Windows.Visibility.Visible;
+            PopulatePresidents();
+            PopulateVPresidents();
+            PopulateSecretaries();
+            PopulateTreasurers();
+            PopulatePRs();
+            PopulatePOs();
         }
 
-        private List<string> GetListPresidents()
+        private void PopulatePresidents()
         {
-            presidents.Clear();
             string comStr = "SELECT Candidates.Name AS Name, Candidates.Party FROM Candidates WHERE Candidates.Position = 'President'";
 
             using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
@@ -907,15 +963,13 @@ namespace SGAutomatedElection
 
                 while (reader.Read())
                 {
-                    presidents.Add(reader["Name"].ToString() +" ("+ reader["Party"].ToString()+") ");
+                    cmbxVotePresident.Items.Add(new { Name = reader["Name"].ToString() + " (" + reader["Party"].ToString() + ") ", Value = reader["Name"].ToString()});
                 }
                 reader.Close();
             }
-            return presidents;
         }
-        private List<string> GetListVPresidents()
+        private void PopulateVPresidents()
         {
-            vicepresidents.Clear();
             string comStr = "SELECT Candidates.Name AS Name, Candidates.Party FROM Candidates WHERE Candidates.Position = 'Vice President'";
 
             using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
@@ -926,15 +980,13 @@ namespace SGAutomatedElection
 
                 while (reader.Read())
                 {
-                    vicepresidents.Add(reader["Name"].ToString() + " (" + reader["Party"].ToString() + ") ");
+                    cmbxVoteVPresident.Items.Add(new { Name = reader["Name"].ToString() + " (" + reader["Party"].ToString() + ") ", Value = reader["Name"].ToString() });
                 }
                 reader.Close();
-            }
-            return vicepresidents;
+            } 
         }
-        private List<string> GetListSecretaries()
+        private void PopulateSecretaries()
         {
-            secretaries.Clear();
             string comStr = "SELECT Candidates.Name AS Name, Candidates.Party FROM Candidates WHERE Candidates.Position = 'Secretary'";
 
             using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
@@ -945,15 +997,13 @@ namespace SGAutomatedElection
 
                 while (reader.Read())
                 {
-                    secretaries.Add(reader["Name"].ToString() + " (" + reader["Party"].ToString() + ") ");
+                    cmbxVoteSecretary.Items.Add(new { Name = reader["Name"].ToString() + " (" + reader["Party"].ToString() + ") ", Value = reader["Name"].ToString() });
                 }
                 reader.Close();
             }
-            return secretaries;
         }
-        private List<string> GetListTreasurers()
+        private void PopulateTreasurers()
         {
-            treasurers.Clear();
             string comStr = "SELECT Candidates.Name AS Name, Candidates.Party FROM Candidates WHERE Candidates.Position = 'Treasurer'";
 
             using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
@@ -964,15 +1014,14 @@ namespace SGAutomatedElection
 
                 while (reader.Read())
                 {
-                    treasurers.Add(reader["Name"].ToString() + " (" + reader["Party"].ToString() + ") ");
+                    cmbxVoteTreasurer.Items.Add(new { Name = reader["Name"].ToString() + " (" + reader["Party"].ToString() + ") ", Value = reader["Name"].ToString() });
+
                 }
                 reader.Close();
             }
-            return treasurers;
         }
-        private List<string> GetListPRs()
+        private void PopulatePRs()
         {
-            prs.Clear();
             string comStr = "SELECT Candidates.Name AS Name, Candidates.Party FROM Candidates WHERE Candidates.Position = 'Public Relations'";
 
             using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
@@ -983,15 +1032,13 @@ namespace SGAutomatedElection
 
                 while (reader.Read())
                 {
-                    prs.Add(reader["Name"].ToString() + " (" + reader["Party"].ToString() + ") ");
+                    cmbxVotePR.Items.Add(new { Name = reader["Name"].ToString() + " (" + reader["Party"].ToString() + ") ", Value = reader["Name"].ToString() }); prs.Add(reader["Name"].ToString() + " (" + reader["Party"].ToString() + ") ");
                 }
                 reader.Close();
             }
-            return prs;
         }
-        private List<string> GetListPOs()
+        private void PopulatePOs()
         {
-            pos.Clear();
             string comStr = "SELECT Candidates.Name AS Name, Candidates.Party FROM Candidates WHERE Candidates.Position = 'Peace Officer'";
 
             using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
@@ -1002,144 +1049,170 @@ namespace SGAutomatedElection
 
                 while (reader.Read())
                 {
-                    pos.Add(reader["Name"].ToString() + " (" + reader["Party"].ToString() + ") ");
+                    cmbxVotePO.Items.Add(new { Name = reader["Name"].ToString() + " (" + reader["Party"].ToString() + ") ", Value = reader["Name"].ToString() }); prs.Add(reader["Name"].ToString() + " (" + reader["Party"].ToString() + ") ");
                 }
                 reader.Close();
             }
-            return pos;
         }
-        private void CreateRbPresidents()
-        {
-            WrapPanel panel = (WrapPanel)FindName("wpPresident");
-            presidents = GetListPresidents();
-            for (int i = 0; i < presidents.Count; i++)
-            {
-                panel.Children.Add(new RadioButton() { Content = presidents[i], Width = 300, Height = 25, FontSize = 14, 
-                    VerticalContentAlignment = System.Windows.VerticalAlignment.Center});
-            }
-        }
-        private void CreateRbVPresidents()
-        {
-            WrapPanel panel = (WrapPanel)FindName("wpVPresident");
-            vicepresidents = GetListVPresidents();
-            for (int i = 0; i < vicepresidents.Count; i++)
-            {
-                panel.Children.Add(new RadioButton()
-                {
-                    Content = vicepresidents[i],
-                    Width = 300,
-                    Height = 25,
-                    FontSize = 14,
-                    VerticalContentAlignment = System.Windows.VerticalAlignment.Center
-                });
-            }
-        }
-        private void CreateRbSecretaries()
-        {
-            WrapPanel panel = (WrapPanel)FindName("wpSecretary");
-            secretaries = GetListSecretaries();
-            for (int i = 0; i < secretaries.Count; i++)
-            {
-                panel.Children.Add(new RadioButton()
-                {
-                    Content = secretaries[i],
-                    Width = 300,
-                    Height = 25,
-                    FontSize = 14,
-                    VerticalContentAlignment = System.Windows.VerticalAlignment.Center
-                });
-            }
-        }
-        private void CreateRbTreasurers()
-        {
-            WrapPanel panel = (WrapPanel)FindName("wpTreasurer");
-            treasurers = GetListTreasurers();
-            for (int i = 0; i < treasurers.Count; i++)
-            {
-                panel.Children.Add(new RadioButton()
-                {
-                    Content = treasurers[i],
-                    Width = 300,
-                    Height = 25,
-                    FontSize = 14,
-                    VerticalContentAlignment = System.Windows.VerticalAlignment.Center
-                });
-            }
-        }
-        private void CreateRbPRs()
-        {
-            WrapPanel panel = (WrapPanel)FindName("wpPRs");
-            prs = GetListPRs();
-            for (int i = 0; i < prs.Count; i++)
-            {
-                panel.Children.Add(new RadioButton()
-                {
-                    Content = prs[i],
-                    Width = 300,
-                    Height = 25,
-                    FontSize = 14,
-                    VerticalContentAlignment = System.Windows.VerticalAlignment.Center
-                });
-            }
-        }
-        private void CreateRbPOs()
-        {
-            WrapPanel panel = (WrapPanel)FindName("wpPOs");
-            pos = GetListPOs();
-            for (int i = 0; i < pos.Count; i++)
-            {
-                panel.Children.Add(new RadioButton()
-                {
-                    Content = pos[i],
-                    Width = 300,
-                    Height = 25,
-                    FontSize = 14,
-                    VerticalContentAlignment = System.Windows.VerticalAlignment.Center
-                });
-            }
-        }
-        private void btnGotoVP_Click(object sender, RoutedEventArgs e)
-        {
-            ((Grid)FindName("gridPresident")).Visibility = System.Windows.Visibility.Collapsed;
-            ((Grid)FindName("gridVPresident")).Visibility = System.Windows.Visibility.Visible;
-            CreateRbVPresidents();
-        }
-
-        private void btnGotoSec_Click(object sender, RoutedEventArgs e)
-        {
-            ((Grid)FindName("gridVPresident")).Visibility = System.Windows.Visibility.Collapsed;
-            ((Grid)FindName("gridSecretary")).Visibility = System.Windows.Visibility.Visible;
-            CreateRbSecretaries();
-        }
-
-        private void btnGotoTreas_Click(object sender, RoutedEventArgs e)
-        {
-            ((Grid)FindName("gridSecretary")).Visibility = System.Windows.Visibility.Collapsed;
-            ((Grid)FindName("gridTreasurer")).Visibility = System.Windows.Visibility.Visible;
-            CreateRbTreasurers();
-        }
-
-        private void btnGotoPRs_Click(object sender, RoutedEventArgs e)
-        {
-            ((Grid)FindName("gridTreasurer")).Visibility = System.Windows.Visibility.Collapsed;
-            ((Grid)FindName("gridPR")).Visibility = System.Windows.Visibility.Visible;
-            CreateRbPRs();
-        }
-
-        private void btnGotoPOs_Click(object sender, RoutedEventArgs e)
-        {
-            ((Grid)FindName("gridPR")).Visibility = System.Windows.Visibility.Collapsed;
-            ((Grid)FindName("gridPO")).Visibility = System.Windows.Visibility.Visible;
-            CreateRbPOs();
-        }
-
+        
         private void btnSubmitVotes_Click(object sender, RoutedEventArgs e)
         {
-            ((Grid)FindName("gridPO")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridVotingPage")).Visibility = System.Windows.Visibility.Collapsed;
             ((Grid)FindName("gridCongrats")).Visibility = System.Windows.Visibility.Visible;
+            CastVote();
+            cmbxVotePO.Items.Clear();
+            cmbxVotePR.Items.Clear();
+            cmbxVotePresident.Items.Clear();
+            cmbxVoteSecretary.Items.Clear();
+            cmbxVoteVPresident.Items.Clear();
+            cmbxVoteTreasurer.Items.Clear();
+        }
+        public void CastVote()
+        {
+            aVote = new Votes(GetIDCandidate(cmbxVotePresident.SelectedValue.ToString()));
+            aVote.Update();
+            aVote = new Votes(GetIDCandidate(cmbxVoteVPresident.SelectedValue.ToString()));
+            aVote.Update();
+            aVote = new Votes(GetIDCandidate(cmbxVoteSecretary.SelectedValue.ToString()));
+            aVote.Update();
+            aVote = new Votes(GetIDCandidate(cmbxVoteTreasurer.SelectedValue.ToString()));
+            aVote.Update();
+            aVote = new Votes(GetIDCandidate(cmbxVotePR.SelectedValue.ToString()));
+            aVote.Update();
+            aVote = new Votes(GetIDCandidate(cmbxVotePO.SelectedValue.ToString()));
+            aVote.Update();
+        }
+        private int GetIDCandidate(string name)
+        {
+            int number = 0;
+            string comStr =
+                "SELECT Candidates.ID AS ID, Candidates.Name AS Name FROM Candidates WHERE Name = '" + name + "'";
+            using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(comStr, connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    number = Convert.ToInt32(reader["ID"]);
+                }
+                reader.Close();
+            }
+            return number;
+        }
+       
+        private void btnMCancel_Click(object sender, RoutedEventArgs e)
+        {
+            ((Grid)FindName("gridManageMain")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridAdmin")).Visibility = System.Windows.Visibility.Visible;
         }
 
+        private void btnMUCancel_Click(object sender, RoutedEventArgs e)
+        {
+            ((Grid)FindName("gridManagementUser")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridManageMain")).Visibility = System.Windows.Visibility.Visible;
+        }
 
-        
+        private void btnMPCancel_Click(object sender, RoutedEventArgs e)
+        {
+            ((Grid)FindName("gridManagementParty")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridManageMain")).Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void btnVotersCancel_Click(object sender, RoutedEventArgs e)
+        {
+            ((Grid)FindName("gridViewer")).Visibility = System.Windows.Visibility.Visible;
+            ((Grid)FindName("gridVoters")).Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        private void btnPartiesCancel_Click(object sender, RoutedEventArgs e)
+        {
+            ((Grid)FindName("gridViewer")).Visibility = System.Windows.Visibility.Visible;
+            ((Grid)FindName("gridParties")).Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        private void btnCandidatesCancel_Click(object sender, RoutedEventArgs e)
+        {
+            ((Grid)FindName("gridViewer")).Visibility = System.Windows.Visibility.Visible;
+            ((Grid)FindName("gridCandidates")).Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        private void btnListingsCancel_Click(object sender, RoutedEventArgs e)
+        {
+            ((Grid)FindName("gridViewer")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridAdmin")).Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void btnCancelDelete_Click(object sender, RoutedEventArgs e)
+        {
+            ((Grid)FindName("gridUserSearch")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)FindName("gridManagementUser")).Visibility = System.Windows.Visibility.Visible;
+
+        }
+
+        private void GetClass(string section)
+        {
+            students.Clear();
+            string comStr =
+                "SELECT " +
+                    "Student.ID AS ID, " +
+                    "Student.Name AS Name, " +
+                    "Student.YearSection AS YearSection, " +
+                    "Student.HasVoted AS HasVoted "+
+                "FROM Student WHERE Student.YearSection ='"+section.ToString()+"'";
+
+            using (SqlConnection connection = new SqlConnection(Settings.ConnectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(comStr, connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    students.Add(new StudentListViewItem()
+                    {
+                        ID = Convert.ToInt32(reader["ID"]),
+                        Name = reader["Name"].ToString(),
+                        YearSection = reader["YearSection"].ToString(),
+                        HasVoted = Convert.ToInt32(reader["HasVoted"])
+                    });
+                }
+                reader.Close();
+                lstClassList.ItemsSource = students;
+            }
+        }
+
+       
+        //Confirm class attendance methods
+        private void btnTVotersCancel_Click(object sender, RoutedEventArgs e)
+        {
+            ((Grid)FindName("gridTeacher")).Visibility = System.Windows.Visibility.Visible;
+            ((Grid)FindName("gridVoters")).Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        private void btnTPartiesCancel_Click(object sender, RoutedEventArgs e)
+        {
+            ((Grid)FindName("gridTeacher")).Visibility = System.Windows.Visibility.Visible;
+            ((Grid)FindName("gridParties")).Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        private void btnTCandidatesCancel_Click(object sender, RoutedEventArgs e)
+        {
+            ((Grid)FindName("gridTeacher")).Visibility = System.Windows.Visibility.Visible;
+            ((Grid)FindName("gridCandidates")).Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        private void cmbxClass_DropDownClosed(object sender, EventArgs e)//di po dapat selection changed. nahuli ko din.
+        {
+            GetClass(cmbxClass.Text);
+        }
+
+        private void btnConfirm_Click(object sender, RoutedEventArgs e)
+        {
+            aStudent = new Student(cmbxClass.Text, 1);
+            aStudent.VUpdate();
+            GetClass(cmbxClass.Text);
+        }
     }
 }

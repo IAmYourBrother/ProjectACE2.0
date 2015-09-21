@@ -21,6 +21,11 @@ namespace ProjectClasses
         {
             ID = id;
         }
+        public Student(string section, int hasvoted)
+        {
+            Section = section;
+            HasVoted = hasvoted;
+        }
         //IQuery methods
         public void Insert()
         {
@@ -61,8 +66,10 @@ namespace ProjectClasses
         {
             SqlConnection connection = new SqlConnection(Settings.ConnectionString);
             connection.Open();
-            string commandString = "UPDATE Student SET HasVoted '"+HasVoted+"' WHERE ID = '" + ID + "'";         
+            string commandString = "UPDATE Student SET HasVoted ='"+HasVoted+"' WHERE YearSection = '" + Section + "'";         
             SqlCommand command = new SqlCommand(commandString, connection);
+            command.ExecuteNonQuery();
+            MessageBox.Show("Updated");
             connection.Close();
             connection.Dispose();
         }

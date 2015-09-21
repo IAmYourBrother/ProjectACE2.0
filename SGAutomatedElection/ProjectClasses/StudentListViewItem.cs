@@ -14,5 +14,6 @@ namespace ProjectClasses
         public int ID { get; set; }
         public string Name { get; set; }
         public string YearSection { get; set; }
+        public int HasVoted { get; set; }
     }
 }
